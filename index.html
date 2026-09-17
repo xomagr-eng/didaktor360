@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>ΔΙΔΑΚΤΩΡ 360° — Οδηγός Υποψηφίου Διδάκτορα</title>
+<meta name="theme-color" content="#0e1020">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ΔΙΔΑΚΤΩΡ 360°">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="manifest" href="manifest.json">
+<style>
+:root{
+  --bg:#0e1020; --bg2:#151935; --panel:#1a1f42; --panel2:#222a55;
+  --ink:#eef1ff; --muted:#a6adde; --line:#2c3670;
+  --accent:#6c7bff; --accent2:#8a63ff; --accent3:#22c1c3;
+  --good:#37d19b; --warn:#ffcf5c; --bad:#ff6b7d;
+  --chip:#232a58; --shadow:0 10px 30px rgba(0,0,0,.35);
+  --radius:16px;
+}
+:root[data-theme="light"]{
+  --bg:#eef1fb; --bg2:#e4e9f7; --panel:#ffffff; --panel2:#f3f6ff;
+  --ink:#151935; --muted:#5a638c; --line:#d4dbf2;
+  --accent:#4453e6; --accent2:#7a3ff0; --accent3:#0aa4a6;
+  --chip:#eef1ff; --shadow:0 10px 24px rgba(40,50,110,.12);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+  background:radial-gradient(1200px 600px at 80% -10%,rgba(108,123,255,.18),transparent 60%),
+             radial-gradient(900px 500px at -10% 10%,rgba(138,99,255,.14),transparent 55%),
+             var(--bg);
+  color:var(--ink); min-height:100vh; line-height:1.5;
+}
+a{color:var(--accent)}
+header.top{
+  position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
+  background:linear-gradient(180deg,rgba(20,24,55,.92),rgba(20,24,55,.7));
+  border-bottom:1px solid var(--line);
+}
+:root[data-theme="light"] header.top{background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.8))}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+.brand{display:flex;align-items:center;gap:14px;padding:14px 0}
+.logo{
+  width:46px;height:46px;border-radius:12px;flex:0 0 auto;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:grid;place-items:center;font-size:24px;box-shadow:var(--shadow)
+}
+.brand h1{font-size:20px;margin:0;letter-spacing:.3px}
+.brand p{margin:0;font-size:12.5px;color:var(--muted)}
+.spacer{flex:1}
+.tbtn{
+  background:var(--chip);border:1px solid var(--line);color:var(--ink);
+  padding:8px 12px;border-radius:10px;cursor:pointer;font-size:13px
+}
+.tbtn:hover{border-color:var(--accent)}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;padding:6px 0 12px}
+nav.tabs button{
+  white-space:nowrap;background:transparent;border:1px solid transparent;
+  color:var(--muted);padding:9px 14px;border-radius:11px;cursor:pointer;
+  font-size:14px;font-weight:600;transition:.15s
+}
+nav.tabs button:hover{color:var(--ink);background:var(--panel)}
+nav.tabs button.active{color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:var(--shadow)}
+:root[data-theme="light"] nav.tabs button.active{color:#fff}
+main{padding:22px 0 80px}
+.view{display:none;animation:fade .25s ease}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:16px}
+.hero{
+  background:linear-gradient(135deg,rgba(108,123,255,.16),rgba(138,99,255,.12));
+  border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin-bottom:18px
+}
+.hero h2{margin:0 0 6px;font-size:23px}
+.hero p{margin:0;color:var(--muted);max-width:760px}
+h2.sec{font-size:19px;margin:4px 0 14px;display:flex;align-items:center;gap:10px}
+h3{font-size:15.5px;margin:0 0 8px}
+.muted{color:var(--muted)}
+.small{font-size:12.5px}
+label{display:block;font-size:12.5px;color:var(--muted);margin:0 0 4px;font-weight:600}
+input,select,textarea{
+  width:100%;background:var(--bg2);border:1px solid var(--line);color:var(--ink);
+  padding:10px 12px;border-radius:10px;font-size:14px;font-family:inherit
+}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+textarea{resize:vertical;min-height:80px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>*{flex:1;min-width:180px}
+.btn{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;
+  padding:11px 18px;border-radius:11px;cursor:pointer;font-size:14px;font-weight:700;box-shadow:var(--shadow)
+}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:var(--chip);color:var(--ink);border:1px solid var(--line);box-shadow:none}
+.btn.sm{padding:7px 12px;font-size:12.5px}
+.chip{display:inline-flex;align-items:center;gap:5px;background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:12px;color:var(--muted);margin:2px}
+.chip.pick{cursor:pointer;user-select:none}
+.chip.pick.on{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:transparent}
+.tag{display:inline-block;font-size:11px;padding:3px 9px;border-radius:999px;font-weight:700;letter-spacing:.2px}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:10px;margin-bottom:16px}
+@media(max-width:820px){.filters{grid-template-columns:1fr 1fr}}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.topic{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:9px;transition:.15s}
+.topic:hover{border-color:var(--accent);transform:translateY(-2px)}
+.topic h4{margin:0;font-size:15.5px;line-height:1.35}
+.topic .meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px}
+.topic .desc{font-size:13px;color:var(--muted);flex:1}
+.topic .foot{display:flex;gap:8px;justify-content:space-between;align-items:center;margin-top:4px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.stars{color:var(--warn);letter-spacing:1px}
+.modal-bg{position:fixed;inset:0;background:rgba(6,8,20,.72);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:30px 16px;overflow:auto}
+.modal-bg.on{display:flex}
+.modal{background:var(--panel);border:1px solid var(--line);border-radius:18px;max-width:760px;width:100%;padding:26px;box-shadow:var(--shadow)}
+.modal h3{font-size:20px}
+.close{float:right;background:var(--chip);border:1px solid var(--line);color:var(--ink);width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:16px}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:8px 14px;margin:14px 0}
+.kv b{color:var(--muted);font-weight:600;font-size:13px}
+.kv span{font-size:13.5px}
+ul.clean{margin:6px 0;padding-left:20px}
+ul.clean li{margin:4px 0;font-size:13.5px}
+.result-block{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px}
+.result-block h3{color:var(--accent);display:flex;align-items:center;gap:8px}
+.score{font-size:12px;font-weight:800;padding:3px 9px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+.step{display:flex;gap:14px;margin-bottom:14px}
+.step .num{flex:0 0 auto;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;display:grid;place-items:center;font-weight:800}
+.step .body{flex:1}
+.accordion{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden;background:var(--panel)}
+.accordion>summary{cursor:pointer;padding:14px 16px;font-weight:700;font-size:14.5px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.accordion>summary::-webkit-details-marker{display:none}
+.accordion[open]>summary{border-bottom:1px solid var(--line);color:var(--accent)}
+.accordion .content{padding:14px 16px}
+.src-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.src{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:13px}
+.src b{font-size:13.5px}
+.src p{margin:5px 0 0;font-size:12.5px;color:var(--muted)}
+.timeline{position:relative;margin-left:12px;padding-left:24px;border-left:2px dashed var(--line)}
+.tl-item{position:relative;margin-bottom:18px}
+.tl-item::before{content:"";position:absolute;left:-31px;top:3px;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 0 0 4px var(--bg)}
+.tl-item .yr{font-size:12px;font-weight:800;color:var(--accent)}
+.tl-item h4{margin:2px 0 6px}
+.empty{text-align:center;color:var(--muted);padding:40px 20px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--panel);border:1px solid var(--accent);color:var(--ink);padding:12px 20px;border-radius:12px;box-shadow:var(--shadow);z-index:200;opacity:0;transition:.25s;font-size:13.5px}
+.toast.on{opacity:1;bottom:34px}
+.pill-row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.callout{border-left:3px solid var(--accent);background:var(--panel2);padding:12px 14px;border-radius:0 10px 10px 0;margin:10px 0;font-size:13.5px}
+.stat{display:flex;gap:14px;flex-wrap:wrap}
+.stat .box{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 16px;flex:1;min-width:120px}
+.stat .box b{font-size:22px;display:block}
+.stat .box span{font-size:12px;color:var(--muted)}
+@media print{
+  header.top,nav.tabs,.tbtn,.btn,.filters,.hero .muted{display:none!important}
+  body{background:#fff;color:#000}
+  .card,.result-block,.topic{box-shadow:none;border-color:#ccc}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo">🎓</div>
+      <div>
+        <h1 style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">ΔΙΔΑΚΤΩΡ 360°<span style="font-size:11.5px;font-weight:600;color:var(--muted);letter-spacing:.2px">© by Chronis Makris</span></h1>
+        <p>Οδηγός & εργαλείο υποψηφίου διδάκτορα — εύρεση θέματος · μεθοδολογία · πηγές · χρονοδιάγραμμα</p>
+      </div>
+      <div class="spacer"></div>
+      <button class="tbtn" id="installBtn" title="Εγκατάσταση εφαρμογής" style="display:none">⬇️ Εγκατάσταση</button>
+      <button class="tbtn" id="fsBtn" title="Πλήρης οθόνη">⛶ Οθόνη</button>
+      <button class="tbtn" id="themeBtn" title="Εναλλαγή θέματος">🌓 Θέμα</button>
+    </div>
+    <nav class="tabs" id="tabs">
+      <button data-v="home" class="active">🏠 Αρχική</button>
+      <button data-v="explore">🔎 Εξερεύνηση θεμάτων</button>
+      <button data-v="propose">💡 Πρόταση & Ταίριασμα</button>
+      <button data-v="guide">🧭 Οδηγός Εκπόνησης</button>
+      <button data-v="sources">📚 Πηγές & Δεδομένα</button>
+      <button data-v="timeline">🗓️ Χρονοδιάγραμμα</button>
+      <button data-v="tips">✅ Συμβουλές</button>
+      <button data-v="folder">📁 Ο Φάκελός μου</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- HOME -->
+<section class="view active" id="v-home">
+  <div class="hero">
+    <h2>Ξεκίνα το διδακτορικό σου με σχέδιο, όχι στην τύχη.</h2>
+    <p>Η εφαρμογή σε βοηθά να <b>βρεις</b> θέμα μέσα από μεγάλη γκάμα διδακτορικών όλων των πεδίων, ή να <b>προτείνεις</b> το δικό σου και να πάρεις εξατομικευμένες προτάσεις. Μετά σου δείχνει <b>πώς</b> να το εκπονήσεις: μεθοδολογία, πού να ψάξεις στοιχεία, συμβουλές και χρονοδιάγραμμα — όλα offline.</p>
+  </div>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr))">
+    <div class="card"><h3>🔎 Εξερεύνηση θεμάτων</h3><p class="muted small">Ψάξε & φιλτράρισε δεκάδες έτοιμα ερευνητικά θέματα ανά επιστημονικό πεδίο, τύπο έρευνας και δυσκολία.</p><button class="btn sm" onclick="go('explore')">Άνοιγμα →</button></div>
+    <div class="card"><h3>💡 Πρόταση & Ταίριασμα</h3><p class="muted small">Δώσε ενδιαφέροντα, πόρους & στόχους. Το εργαλείο ταιριάζει θέματα και χτίζει σχέδιο πρότασης για σένα.</p><button class="btn sm" onclick="go('propose')">Άνοιγμα →</button></div>
+    <div class="card"><h3>🧭 Οδηγός Εκπόνησης</h3><p class="muted small">Βήμα-βήμα μεθοδολογία ανά τύπο έρευνας: ποσοτική, ποιοτική, πειραματική, θεωρητική, υπολογιστική, μεικτή.</p><button class="btn sm" onclick="go('guide')">Άνοιγμα →</button></div>
+    <div class="card"><h3>📚 Πηγές & Δεδομένα</h3><p class="muted small">Βάσεις δεδομένων, αρχεία & στατιστικές πηγές ανά πεδίο — πού και πώς να αναζητήσεις υλικό.</p><button class="btn sm" onclick="go('sources')">Άνοιγμα →</button></div>
+    <div class="card"><h3>🗓️ Χρονοδιάγραμμα</h3><p class="muted small">Φτιάξε ρεαλιστικό πλάνο 3–5 ετών με φάσεις, ορόσημα & παραδοτέα.</p><button class="btn sm" onclick="go('timeline')">Άνοιγμα →</button></div>
+    <div class="card"><h3>✅ Συμβουλές</h3><p class="muted small">Επιλογή επιβλέποντα, χρηματοδότηση, δημοσιεύσεις, αποφυγή λαθών, ψυχική αντοχή.</p><button class="btn sm" onclick="go('tips')">Άνοιγμα →</button></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3>Πώς δουλεύει</h3>
+    <div class="step"><div class="num">1</div><div class="body"><b>Βρες ή πρότεινε θέμα.</b><span class="muted small"> Εξερεύνησε τον κατάλογο ή περιέγραψε το δικό σου ενδιαφέρον.</span></div></div>
+    <div class="step"><div class="num">2</div><div class="body"><b>Πάρε εξατομικευμένη πρόταση.</b><span class="muted small"> Ερευνητικά ερωτήματα, μεθοδολογία & πηγές κομμένα στα μέτρα σου.</span></div></div>
+    <div class="step"><div class="num">3</div><div class="body"><b>Οργάνωσε την εκπόνηση.</b><span class="muted small"> Οδηγός βημάτων + χρονοδιάγραμμα + φάκελος που εξάγεις σε Word/PDF.</span></div></div>
+  </div>
+</section>
+
+<!-- EXPLORE -->
+<section class="view" id="v-explore">
+  <h2 class="sec">🔎 Εξερεύνηση διδακτορικών θεμάτων</h2>
+  <div class="filters">
+    <input id="fltSearch" placeholder="🔍 Αναζήτηση λέξης-κλειδιού (π.χ. AI, φορολογία, κλίμα)...">
+    <select id="fltField"></select>
+    <select id="fltType"></select>
+    <select id="fltDiff">
+      <option value="">Κάθε δυσκολία</option>
+      <option value="1">★☆☆ Προσιτό</option>
+      <option value="2">★★☆ Μεσαίο</option>
+      <option value="3">★★★ Απαιτητικό</option>
+    </select>
+  </div>
+  <p class="muted small" id="exploreCount" style="margin-top:-6px"></p>
+  <div class="cat-grid" id="catGrid"></div>
+</section>
+
+<!-- PROPOSE -->
+<section class="view" id="v-propose">
+  <h2 class="sec">💡 Πρόταση θέματος & έξυπνο ταίριασμα</h2>
+  <div class="card">
+    <p class="muted small">Συμπλήρωσε όσα ξέρεις. Το εργαλείο θα (α) ταιριάξει θέματα από τον κατάλογο και (β) θα χτίσει προσχέδιο πρότασης με ερευνητικά ερωτήματα, μεθοδολογία, πηγές και επόμενα βήματα.</p>
+    <div class="row" style="margin-top:12px">
+      <div><label>Επιστημονικό πεδίο</label><select id="pField"></select></div>
+      <div><label>Στόχος μετά το διδακτορικό</label>
+        <select id="pGoal">
+          <option value="academia">Ακαδημαϊκή/ερευνητική καριέρα</option>
+          <option value="industry">Βιομηχανία / ιδιωτικός τομέας</option>
+          <option value="public">Δημόσιος τομέας / πολιτική</option>
+          <option value="personal">Προσωπική εξέλιξη / εξειδίκευση</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-top:12px">
+      <label>Τι σε ενδιαφέρει; (λέξεις-κλειδιά, θέμα ή σύντομη ιδέα)</label>
+      <textarea id="pInterest" placeholder="π.χ. «Τεχνητή νοημοσύνη για ανίχνευση φοροδιαφυγής και ανάλυση τελωνειακών δεδομένων»"></textarea>
+    </div>
+    <div style="margin-top:12px">
+      <label>Προτιμώμενος τύπος έρευνας (διάλεξε όσους θες)</label>
+      <div class="pill-row" id="pTypePills"></div>
+    </div>
+    <div class="row" style="margin-top:6px">
+      <div><label>Διαθέσιμοι πόροι / δεδομένα</label>
+        <select id="pRes">
+          <option value="any">Δεν είμαι σίγουρος/η</option>
+          <option value="data">Έχω πρόσβαση σε δεδομένα/αρχεία</option>
+          <option value="lab">Έχω εργαστήριο/εξοπλισμό</option>
+          <option value="field">Μπορώ να κάνω έρευνα πεδίου/συνεντεύξεις</option>
+          <option value="lit">Κυρίως βιβλιογραφία/θεωρία</option>
+        </select>
+      </div>
+      <div><label>Διαθέσιμος χρόνος</label>
+        <select id="pTime">
+          <option value="full">Πλήρης απασχόληση</option>
+          <option value="part">Μερική (εργάζομαι παράλληλα)</option>
+        </select>
+      </div>
+      <div><label>Χρόνια στόχος</label>
+        <select id="pYears"><option>3</option><option selected>4</option><option>5</option></select>
+      </div>
+    </div>
+    <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn" onclick="runMatch()">✨ Δώσε μου προτάσεις</button>
+      <button class="btn ghost" onclick="clearMatch()">Καθαρισμός</button>
+    </div>
+  </div>
+  <div id="matchOut" style="margin-top:16px"></div>
+</section>
+
+<!-- GUIDE -->
+<section class="view" id="v-guide">
+  <h2 class="sec">🧭 Οδηγός εκπόνησης ανά τύπο έρευνας</h2>
+  <p class="muted small">Διάλεξε τον τύπο που ταιριάζει στο θέμα σου για αναλυτικά βήματα, μεθόδους και συμβουλές. Δεν ξέρεις; Ξεκίνα με τα «Γενικά βήματα».</p>
+  <div class="pill-row" id="guidePills" style="margin:12px 0"></div>
+  <div id="guideOut"></div>
+</section>
+
+<!-- SOURCES -->
+<section class="view" id="v-sources">
+  <h2 class="sec">📚 Πηγές, βάσεις δεδομένων & στατιστικά</h2>
+  <p class="muted small">Πού να αναζητήσεις βιβλιογραφία και δεδομένα ανάλογα με το πεδίο. Επίλεξε πεδίο ή δες τις γενικές πηγές.</p>
+  <div class="row" style="margin:12px 0;max-width:420px">
+    <select id="srcField"></select>
+  </div>
+  <div id="srcOut"></div>
+</section>
+
+<!-- TIMELINE -->
+<section class="view" id="v-timeline">
+  <h2 class="sec">🗓️ Γεννήτρια χρονοδιαγράμματος</h2>
+  <div class="card">
+    <div class="row">
+      <div><label>Διάρκεια (χρόνια)</label><select id="tlYears"><option>3</option><option selected>4</option><option>5</option></select></div>
+      <div><label>Τύπος έρευνας</label><select id="tlType"></select></div>
+      <div style="display:flex;align-items:flex-end"><button class="btn" onclick="buildTimeline()" style="width:100%">Δημιουργία πλάνου</button></div>
+    </div>
+  </div>
+  <div id="tlOut" style="margin-top:16px"></div>
+</section>
+
+<!-- TIPS -->
+<section class="view" id="v-tips">
+  <h2 class="sec">✅ Συμβουλές που κάνουν τη διαφορά</h2>
+  <div id="tipsOut"></div>
+</section>
+
+<!-- FOLDER -->
+<section class="view" id="v-folder">
+  <h2 class="sec">📁 Ο Φάκελός μου</h2>
+  <div class="card" style="margin-bottom:16px">
+    <div class="row">
+      <div style="display:flex;align-items:flex-end;gap:10px">
+        <button class="btn ghost sm" onclick="window.print()">🖨️ Εκτύπωση / PDF</button>
+        <button class="btn ghost sm" onclick="exportWord()">📄 Εξαγωγή Word</button>
+        <button class="btn ghost sm" onclick="exportBackup()">⬇️ Εξαγωγή αρχείου (.json)</button>
+        <button class="btn ghost sm" onclick="document.getElementById('importFile').click()">⬆️ Εισαγωγή αρχείου</button>
+        <input type="file" id="importFile" accept=".json,application/json" style="display:none" onchange="importBackup(this)">
+        <button class="btn ghost sm" onclick="clearFolder()">🗑️ Καθαρισμός φακέλου</button>
+      </div>
+    </div>
+    <p class="muted small" style="margin:10px 0 0">Αποθηκευμένα θέματα & το τελευταίο σχέδιο πρότασης μένουν στον browser σου (offline). Με την <b>Εξαγωγή αρχείου</b> κατεβάζεις ένα <code>.json</code> για μεταφορά σε άλλη συσκευή (π.χ. κινητό → υπολογιστή) και με την <b>Εισαγωγή</b> το φορτώνεις εκεί.</p>
+  </div>
+  <div id="folderOut"></div>
+</section>
+
+  <footer style="text-align:center;padding:26px 0 40px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);margin-top:30px">
+    © by Chronis Makris · ΔΙΔΑΚΤΩΡ 360°
+  </footer>
+</main>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modalBox"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ DATA ============ */
+const FIELDS = {
+  cs:"Πληροφορική & ΤΝ", eng:"Μηχανική & Τεχνολογία", med:"Ιατρική & Επιστ. Υγείας",
+  bio:"Βιολογία & Περιβάλλον", econ:"Οικονομικά & Διοίκηση", law:"Νομική & Διακυβέρνηση",
+  soc:"Κοινωνικές Επιστήμες", hum:"Ανθρωπιστικές & Τέχνες", edu:"Παιδαγωγικά & Εκπαίδευση",
+  phys:"Φυσική & Μαθηματικά", psych:"Ψυχολογία & Νευροεπιστήμες", agri:"Γεωπονία & Τρόφιμα"
+};
+const TYPES = {
+  quant:"Ποσοτική / εμπειρική", qual:"Ποιοτική", exp:"Πειραματική / εργαστηριακή",
+  theo:"Θεωρητική / μαθηματική", comp:"Υπολογιστική / μοντελοποίηση",
+  mixed:"Μεικτή", review:"Βιβλιογραφική / συστηματική ανασκόπηση", applied:"Εφαρμοσμένη / σχεδιαστική"
+};
+
+// Catalog of PhD topic ideas across fields
+const CATALOG = [
+  // CS / AI
+  {t:"Ανίχνευση απάτης με μηχανική μάθηση σε συναλλακτικά δεδομένα", f:"cs", ty:["quant","comp"], d:2, k:"τεχνητη νοημοσυνη ai machine learning απατη fraud δεδομενα αναλυση φοροδιαφυγη", desc:"Ανάπτυξη μοντέλων ML που εντοπίζουν ανώμαλα μοτίβα σε μεγάλα σύνολα συναλλαγών."},
+  {t:"Εξηγήσιμη Τεχνητή Νοημοσύνη (XAI) σε αποφάσεις υψηλού ρίσκου", f:"cs", ty:["comp","applied"], d:3, k:"xai εξηγησιμη τεχνητη νοημοσυνη ηθικη διαφανεια", desc:"Μέθοδοι που κάνουν κατανοητές τις προβλέψεις νευρωνικών δικτύων σε ιατρική/δικαιοσύνη."},
+  {t:"Μεγάλα γλωσσικά μοντέλα για νομικά/διοικητικά κείμενα", f:"cs", ty:["comp","applied"], d:3, k:"llm nlp γλωσσα κειμενα νομικα δημοσιο", desc:"Fine-tuning & αξιολόγηση LLM για εξαγωγή πληροφορίας από θεσμικά έγγραφα."},
+  {t:"Κυβερνοασφάλεια κρίσιμων υποδομών με ανίχνευση εισβολών", f:"cs", ty:["exp","comp"], d:2, k:"κυβερνοασφαλεια security δικτυα intrusion υποδομες", desc:"Συστήματα IDS βασισμένα σε ανωμαλίες για SCADA/IoT δίκτυα."},
+  {t:"Ομοσπονδιακή μάθηση με διατήρηση ιδιωτικότητας", f:"cs", ty:["comp","theo"], d:3, k:"federated learning privacy ιδιωτικοτητα gdpr", desc:"Εκπαίδευση μοντέλων χωρίς συγκέντρωση προσωπικών δεδομένων."},
+  // Engineering
+  {t:"Βελτιστοποίηση δικτύων ενέργειας με ανανεώσιμες πηγές", f:"eng", ty:["comp","applied"], d:2, k:"ενεργεια ανανεωσιμες δικτυο smart grid βελτιστοποιηση", desc:"Μοντέλα διαχείρισης φορτίου σε έξυπνα δίκτυα με ΑΠΕ και αποθήκευση."},
+  {t:"Υλικά νέας γενιάς για μπαταρίες στερεάς κατάστασης", f:"eng", ty:["exp"], d:3, k:"υλικα μπαταριες batteries ενεργεια χημεια", desc:"Σύνθεση & χαρακτηρισμός ηλεκτρολυτών για ασφαλέστερη αποθήκευση ενέργειας."},
+  {t:"Ρομποτική συνεργασία ανθρώπου–μηχανής σε γραμμές παραγωγής", f:"eng", ty:["exp","applied"], d:2, k:"ρομποτικη robotics αυτοματισμος βιομηχανια 4.0", desc:"Ασφαλή cobots με αντίληψη περιβάλλοντος για ευέλικτη παραγωγή."},
+  {t:"Ανθεκτικές κατασκευές σε σεισμικά φορτία", f:"eng", ty:["exp","comp"], d:2, k:"πολιτικος μηχανικος σεισμος κατασκευες αντισεισμικη", desc:"Πειραματική & αριθμητική αποτίμηση συστημάτων απόσβεσης."},
+  // Medicine / Health
+  {t:"Βιοδείκτες πρώιμης διάγνωσης νευροεκφυλιστικών νόσων", f:"med", ty:["exp","quant"], d:3, k:"ιατρικη βιοδεικτες alzheimer διαγνωση υγεια", desc:"Αναζήτηση μοριακών/απεικονιστικών δεικτών για έγκαιρη παρέμβαση."},
+  {t:"Τηλεϊατρική & αποτελέσματα σε χρόνιους ασθενείς", f:"med", ty:["quant","mixed"], d:2, k:"τηλειατρικη υγεια χρονια νοσηματα δημοσια υγεια", desc:"Κλινική μελέτη έκβασης και κόστους-οφέλους τηλε-παρακολούθησης."},
+  {t:"Μικροβίωμα εντέρου και μεταβολικά νοσήματα", f:"med", ty:["exp"], d:3, k:"μικροβιωμα διατροφη μεταβολισμος υγεια βιολογια", desc:"Συσχέτιση σύνθεσης μικροβιώματος με παχυσαρκία/διαβήτη."},
+  {t:"Ψηφιακή παθολογία με βαθιά μάθηση", f:"med", ty:["comp","quant"], d:3, k:"ιατρικη απεικονιση deep learning καρκινος διαγνωση", desc:"Αυτόματη ταξινόμηση ιστολογικών εικόνων για υποστήριξη διάγνωσης."},
+  // Biology / Environment
+  {t:"Επιπτώσεις κλιματικής αλλαγής στη βιοποικιλότητα Μεσογείου", f:"bio", ty:["quant","mixed"], d:2, k:"κλιμα κλιματικη αλλαγη περιβαλλον βιοποικιλοτητα οικοσυστημα", desc:"Μοντέλα κατανομής ειδών υπό σενάρια θέρμανσης."},
+  {t:"Μικροπλαστικά σε θαλάσσια τροφική αλυσίδα", f:"bio", ty:["exp","quant"], d:2, k:"μικροπλαστικα ρυπανση θαλασσα περιβαλλον", desc:"Ποσοτικοποίηση & τοξικολογική εκτίμηση μικροπλαστικών."},
+  {t:"Αποκατάσταση υποβαθμισμένων οικοσυστημάτων", f:"bio", ty:["exp","applied"], d:2, k:"οικολογια αποκατασταση δαση περιβαλλον", desc:"Στρατηγικές επαναδάσωσης και ανάκαμψης εδαφών."},
+  // Economics / Management
+  {t:"Επίδραση ψηφιακού φόρου/φορολογικών πολιτικών στα έσοδα", f:"econ", ty:["quant","review"], d:2, k:"φορολογια φορος οικονομικα εσοδα δημοσιο πολιτικη φοροδιαφυγη τελωνειακα", desc:"Οικονομετρική εκτίμηση επιπτώσεων φορολογικών μεταρρυθμίσεων."},
+  {t:"Καταπολέμηση φοροδιαφυγής μέσω ανάλυσης δεδομένων", f:"econ", ty:["quant","applied"], d:2, k:"φοροδιαφυγη φορολογια δεδομενα ελεγχος αναλυση κινδυνου τελωνειακα λαθρεμποριο", desc:"Μοντέλα εκτίμησης κινδύνου & στόχευσης ελέγχων σε φορολογικές/τελωνειακές αρχές."},
+  {t:"Συμπεριφορική οικονομική στη φορολογική συμμόρφωση", f:"econ", ty:["exp","quant"], d:2, k:"συμπεριφορικη οικονομικα συμμορφωση φορολογια nudge", desc:"Πειράματα πεδίου για nudges που αυξάνουν την εθελοντική συμμόρφωση."},
+  {t:"ESG & βιώσιμη εταιρική διακυβέρνηση", f:"econ", ty:["quant","mixed"], d:2, k:"esg βιωσιμοτητα διοικηση επιχειρησεις χρηματοοικονομικα", desc:"Σχέση ESG επιδόσεων με χρηματιστηριακή αξία & ρίσκο."},
+  {t:"Κρυπτονομίσματα, ρύθμιση & χρηματοπιστωτική σταθερότητα", f:"econ", ty:["quant","review"], d:3, k:"crypto blockchain χρηματοοικονομικα ρυθμιση", desc:"Ανάλυση επίδρασης ψηφιακών περιουσιακών στοιχείων στο σύστημα."},
+  // Law / Governance
+  {t:"Νομικό πλαίσιο ΤΝ & ευθύνη αλγοριθμικών αποφάσεων", f:"law", ty:["theo","review"], d:2, k:"νομικη τεχνητη νοημοσυνη ευθυνη ρυθμιση δικαιο", desc:"Ανάλυση ενωσιακού/εθνικού δικαίου για τον AI Act και τη λογοδοσία."},
+  {t:"Τελωνειακό δίκαιο & καταπολέμηση λαθρεμπορίου στην ΕΕ", f:"law", ty:["review","qual"], d:2, k:"τελωνειακο δικαιο λαθρεμποριο δασμοι εε νομικη δημοσιο", desc:"Συγκριτική μελέτη μηχανισμών ελέγχου και κυρώσεων."},
+  {t:"Προστασία δεδομένων (GDPR) στον δημόσιο τομέα", f:"law", ty:["qual","review"], d:2, k:"gdpr δεδομενα ιδιωτικοτητα δημοσιο νομικη διοικηση", desc:"Αξιολόγηση συμμόρφωσης & προτάσεις πολιτικής."},
+  {t:"Διοικητική δικαιοσύνη & ταχύτητα απονομής", f:"law", ty:["quant","qual"], d:2, k:"διοικητικο δικαιο δικαιοσυνη δημοσιο διοικηση", desc:"Εμπειρική μελέτη καθυστερήσεων και μεταρρυθμίσεων."},
+  // Social
+  {t:"Ψηφιακός μετασχηματισμός δημόσιας διοίκησης", f:"soc", ty:["mixed","qual"], d:2, k:"δημοσια διοικηση ψηφιακος μετασχηματισμος e-government πολιτικη", desc:"Παράγοντες επιτυχίας/αποτυχίας έργων ηλεκτρονικής διακυβέρνησης."},
+  {t:"Μετανάστευση, ένταξη & κοινωνική συνοχή", f:"soc", ty:["mixed","qual"], d:2, k:"μεταναστευση κοινωνια ενταξη πολιτικη", desc:"Μεικτή μελέτη πολιτικών ένταξης σε τοπικό επίπεδο."},
+  {t:"Παραπληροφόρηση & δημόσια σφαίρα στα social media", f:"soc", ty:["quant","mixed"], d:2, k:"παραπληροφορηση fake news social media κοινωνια επικοινωνια", desc:"Ανάλυση διάδοσης & αποτελεσματικότητας αντιμέτρων."},
+  // Humanities / Arts
+  {t:"Ψηφιακές ανθρωπιστικές επιστήμες & ανάλυση κειμένων", f:"hum", ty:["comp","review"], d:2, k:"ψηφιακες ανθρωπιστικες κειμενα ιστορια γλωσσα", desc:"Υπολογιστική ανάλυση λογοτεχνικών/ιστορικών σωμάτων κειμένων."},
+  {t:"Πολιτιστική κληρονομιά & 3D ψηφιοποίηση μνημείων", f:"hum", ty:["applied","exp"], d:2, k:"πολιτιστικη κληρονομια αρχαιολογια ψηφιοποιηση 3d", desc:"Μεθοδολογίες τεκμηρίωσης & εικονικής αναπαράστασης."},
+  {t:"Νεοελληνική λογοτεχνία & ταυτότητα", f:"hum", ty:["qual","review"], d:2, k:"λογοτεχνια γλωσσα ταυτοτητα ανθρωπιστικες", desc:"Ερμηνευτική μελέτη αναπαραστάσεων ταυτότητας."},
+  // Education
+  {t:"Τεχνητή νοημοσύνη & εξατομικευμένη μάθηση", f:"edu", ty:["mixed","applied"], d:2, k:"εκπαιδευση παιδαγωγικα ai μαθηση τεχνολογια", desc:"Επίδραση προσαρμοστικών συστημάτων στα μαθησιακά αποτελέσματα."},
+  {t:"Εξ αποστάσεως εκπαίδευση: ισότητα & αποτελεσματικότητα", f:"edu", ty:["mixed","quant"], d:1, k:"εξ αποστασεως εκπαιδευση ψηφιακη μαθηση ισοτητα", desc:"Συγκριτική μελέτη μοντέλων και ψηφιακού χάσματος."},
+  {t:"Επαγγελματική ανάπτυξη εκπαιδευτικών", f:"edu", ty:["qual","mixed"], d:1, k:"εκπαιδευτικοι επιμορφωση παιδαγωγικα", desc:"Μοντέλα συνεχούς επιμόρφωσης και επίδραση στην πράξη."},
+  // Physics / Math
+  {t:"Κβαντικοί αλγόριθμοι για βελτιστοποίηση", f:"phys", ty:["theo","comp"], d:3, k:"κβαντικη quantum αλγοριθμοι μαθηματικα φυσικη", desc:"Ανάπτυξη & ανάλυση κβαντικών αλγορίθμων για NP-hard προβλήματα."},
+  {t:"Στοχαστικά μοντέλα στη χρηματοοικονομική & κίνδυνο", f:"phys", ty:["theo","quant"], d:3, k:"μαθηματικα στατιστικη στοχαστικα κινδυνος χρηματοοικονομικα", desc:"Θεωρία & εφαρμογή στοχαστικών διαφορικών εξισώσεων."},
+  {t:"Υλικά τοπολογικής φύσης & κβαντικές ιδιότητες", f:"phys", ty:["exp","theo"], d:3, k:"φυσικη υλικα κβαντικη τοπολογια", desc:"Πειραματική διερεύνηση νέων καταστάσεων ύλης."},
+  // Psychology / Neuro
+  {t:"Ψηφιακή υγεία & παρεμβάσεις ψυχικής ευεξίας", f:"psych", ty:["exp","quant"], d:2, k:"ψυχολογια ψυχικη υγεια εφαρμογες παρεμβαση", desc:"RCT εφαρμογών mindfulness/CBT μέσω κινητού."},
+  {t:"Νευρωνικές βάσεις της λήψης αποφάσεων υπό ρίσκο", f:"psych", ty:["exp"], d:3, k:"νευροεπιστημη αποφασεις ρισκο εγκεφαλος", desc:"Πειράματα fMRI/EEG για συμπεριφορά υπό αβεβαιότητα."},
+  {t:"Εργασιακό στρες & ευημερία στον δημόσιο τομέα", f:"psych", ty:["mixed","quant"], d:1, k:"εργασιακο στρες ευημερια δημοσιο ψυχολογια", desc:"Παράγοντες burnout και παρεμβάσεις στον χώρο εργασίας."},
+  // Agriculture / Food
+  {t:"Ευφυής γεωργία ακριβείας με αισθητήρες & ΤΝ", f:"agri", ty:["applied","comp"], d:2, k:"γεωργια ακριβειας αισθητηρες ai τροφιμα ελια", desc:"Βελτιστοποίηση άρδευσης/λίπανσης με δεδομένα πεδίου."},
+  {t:"Ανθεκτικές καλλιέργειες στην ξηρασία & κλιματική αλλαγή", f:"agri", ty:["exp"], d:2, k:"γεωπονια ξηρασια κλιμα καλλιεργειες ανθεκτικοτητα", desc:"Γενετική & αγρονομική βελτίωση για μειωμένους πόρους."},
+  {t:"Ασφάλεια & ιχνηλασιμότητα τροφίμων με blockchain", f:"agri", ty:["applied","quant"], d:2, k:"τροφιμα ασφαλεια ιχνηλασιμοτητα blockchain αλυσιδα", desc:"Σχεδιασμός συστήματος διαφανούς εφοδιαστικής αλυσίδας."}
+];
+
+/* Sources per field */
+const SOURCES = {
+  general:[
+    ["Google Scholar","Ελεύθερη μηχανή ακαδημαϊκής αναζήτησης — καλή αφετηρία & παρακολούθηση αναφορών."],
+    ["Semantic Scholar","AI-based αναζήτηση με περιλήψεις & γράφο αναφορών."],
+    ["OpenAlex","Ανοιχτή, δωρεάν βάση επιστημονικών έργων & συγγραφέων."],
+    ["ΕΚΤ / Εθνικό Αρχείο Διδακτορικών (didaktorika.gr)","Όλες οι ελληνικές διδακτορικές διατριβές — δες τι έχει ήδη γίνει."],
+    ["DOAJ","Κατάλογος έγκυρων open-access περιοδικών."],
+    ["Zenodo / ResearchGate","Ανοιχτά δεδομένα, preprints & δικτύωση ερευνητών."],
+    ["Connected Papers","Οπτικός χάρτης σχετικών εργασιών γύρω από ένα paper."]
+  ],
+  cs:[["arXiv (cs)","Preprints Πληροφορικής/ΤΝ."],["IEEE Xplore","Συνέδρια & περιοδικά μηχανικής/υπολογιστών."],["ACM Digital Library","Κορυφαία βάση Computer Science."],["Papers with Code","State-of-the-art + κώδικας & datasets."],["Kaggle / HuggingFace","Σύνολα δεδομένων & μοντέλα."]],
+  eng:[["IEEE Xplore","Μηχανική & τεχνολογία."],["ScienceDirect (Elsevier)","Ευρύ φάσμα μηχανικής."],["ASME/ASCE Libraries","Μηχανολογία/πολιτικός μηχανικός."],["ΤΕΕ / τεχνικές προδιαγραφές","Ελληνικά τεχνικά πρότυπα."]],
+  med:[["PubMed / MEDLINE","Η βασική βάση βιοϊατρικής."],["Cochrane Library","Συστηματικές ανασκοπήσεις & RCTs."],["ClinicalTrials.gov","Μητρώο κλινικών μελετών."],["Embase","Φαρμακολογία & βιοϊατρική."],["ΕΟΔΥ / Eurostat health","Ελληνικά & ευρωπαϊκά δεδομένα υγείας."]],
+  bio:[["PubMed / GenBank","Βιολογία & γονιδιωματική."],["GBIF","Παγκόσμια δεδομένα βιοποικιλότητας."],["Copernicus / NASA Earthdata","Περιβαλλοντικά & δορυφορικά δεδομένα."],["EEA","Ευρωπαϊκός Οργανισμός Περιβάλλοντος."]],
+  econ:[["EconLit / RePEc / SSRN","Οικονομικά working papers & περιοδικά."],["ΕΛΣΤΑΤ","Ελληνική Στατιστική Αρχή — επίσημα στοιχεία."],["Eurostat","Στατιστικές ΕΕ."],["OECD.Stat / World Bank Data","Διεθνή οικονομικά δεδομένα."],["ΑΑΔΕ – στατιστικά δελτία","Φορολογικά/τελωνειακά ανοιχτά στοιχεία."],["Τράπεζα Ελλάδος / ΟΔΔΗΧ","Χρηματοοικονομικά & δημοσιονομικά."]],
+  law:[["EUR-Lex","Όλο το δίκαιο της ΕΕ."],["Νόμος/ΔΣΑ, ΦΕΚ (et.gr)","Ελληνική νομοθεσία & νομολογία."],["HeinOnline / Westlaw","Διεθνείς νομικές βάσεις (μέσω βιβλιοθήκης)."],["curia.europa.eu / hudoc (ΕΔΔΑ)","Νομολογία ΔΕΕ & ΕΔΔΑ."]],
+  soc:[["JSTOR","Κοινωνικές & ανθρωπιστικές επιστήμες."],["SocINDEX","Κοινωνιολογία."],["European Social Survey / diaNEOsis","Δεδομένα ερευνών κοινής γνώμης."],["ΕΛΣΤΑΤ / Eurostat","Κοινωνικά & δημογραφικά στοιχεία."]],
+  hum:[["JSTOR / Project MUSE","Ανθρωπιστικές επιστήμες."],["Perseus / TLG","Αρχαία & κλασικά κείμενα."],["Europeana","Ψηφιακή πολιτιστική κληρονομιά."],["Google Books / HathiTrust","Ψηφιοποιημένα βιβλία."]],
+  edu:[["ERIC","Η βασική βάση εκπαιδευτικής έρευνας."],["OECD PISA / TALIS","Διεθνή εκπαιδευτικά δεδομένα."],["ΙΕΠ / ΕΛΣΤΑΤ εκπαίδευση","Ελληνικά στοιχεία."]],
+  phys:[["arXiv (physics/math)","Preprints φυσικής & μαθηματικών."],["INSPIRE-HEP","Φυσική υψηλών ενεργειών."],["MathSciNet / zbMATH","Μαθηματική βιβλιογραφία."],["NASA ADS","Αστροφυσική."]],
+  psych:[["PsycINFO (APA)","Η βασική βάση ψυχολογίας."],["PubMed","Νευροεπιστήμες & ψυχική υγεία."],["OSF","Preregistration & ανοιχτά δεδομένα."]],
+  agri:[["AGRIS (FAO)","Παγκόσμια γεωργική βιβλιογραφία."],["FAOSTAT","Στατιστικά τροφίμων & γεωργίας."],["Copernicus Land","Δορυφορικά δεδομένα καλλιεργειών."],["ΕΛΓΟ-ΔΗΜΗΤΡΑ / ΥΠΑΑΤ","Ελληνικά γεωργικά δεδομένα."]]
+};
+
+/* Methodology guide per type */
+const GUIDE = {
+  general:{title:"Γενικά βήματα κάθε διδακτορικού", icon:"🧭", steps:[
+    ["Εντοπισμός ερευνητικού κενού","Διάβασε πρόσφατες ανασκοπήσεις (reviews) & τις προτάσεις «future work». Ρώτα: τι δεν έχει απαντηθεί;"],
+    ["Ερευνητικό ερώτημα & υποθέσεις","Διατύπωσε 1 κεντρικό + 2-3 επιμέρους ερωτήματα. Πρέπει να είναι σαφή, εφικτά, πρωτότυπα (κριτήριο FINER)."],
+    ["Βιβλιογραφική επισκόπηση","Χτίσε συστηματικό αρχείο (Zotero/Mendeley). Χαρτογράφησε τι έχει γίνει & πού κολλάει."],
+    ["Επιλογή μεθοδολογίας","Ταίριαξε τη μέθοδο στο ερώτημα — όχι το ερώτημα στη μέθοδο που ξέρεις."],
+    ["Πρόταση (proposal)","Γράψε 10-20 σελίδες: πρόβλημα, βιβλιογραφία, μεθοδολογία, χρονοδιάγραμμα, συνεισφορά."],
+    ["Συλλογή & ανάλυση","Πιλότος πρώτα. Κράτα αυστηρή τεκμηρίωση (reproducibility)."],
+    ["Δημοσιεύσεις","Στόχευσε 2-4 papers σε peer-review — η διατριβή συχνά «δένεται» από αυτά."],
+    ["Συγγραφή & υποστήριξη","Γράφε από νωρίς. Πρόβα υποστήριξης με το εργαστήριο."]
+  ], tips:["Κράτα ερευνητικό ημερολόγιο.","Βρες τον επιβλέποντα ΠΡΙΝ οριστικοποιήσεις θέμα.","Το «τέλειο» θέμα δεν υπάρχει — το εφικτό & ενδιαφέρον νικά."]},
+
+  quant:{title:"Ποσοτική / εμπειρική έρευνα", icon:"📊", steps:[
+    ["Θεωρητικό μοντέλο & υποθέσεις","Ορισμός μεταβλητών (εξαρτημένη/ανεξάρτητες/ελέγχου) & αναμενόμενων σχέσεων."],
+    ["Σχεδιασμός δείγματος","Υπολόγισε μέγεθος δείγματος (power analysis). Πρόσεξε bias επιλογής."],
+    ["Συλλογή δεδομένων","Ερωτηματολόγια/διοικητικά δεδομένα/panel. Έλεγξε εγκυρότητα & αξιοπιστία."],
+    ["Στατιστική ανάλυση","Παλινδρόμηση, panel/IV, causal inference. Εργαλεία: R, Python, Stata, SPSS."],
+    ["Έλεγχος ευρωστίας","Robustness checks, εναλλακτικές προδιαγραφές, ευαισθησία."]
+  ], tips:["Προεγγραφή (pre-registration) αυξάνει την αξιοπιστία.","Συσχέτιση ≠ αιτιότητα — σκέψου το identification strategy."]},
+
+  qual:{title:"Ποιοτική έρευνα", icon:"🗣️", steps:[
+    ["Επιστημολογικό πλαίσιο","Grounded theory, φαινομενολογία, μελέτη περίπτωσης, εθνογραφία;"],
+    ["Δειγματοληψία","Σκόπιμη/θεωρητική δειγματοληψία μέχρι κορεσμό (saturation)."],
+    ["Συλλογή","Ημιδομημένες συνεντεύξεις, focus groups, παρατήρηση, έγγραφα."],
+    ["Κωδικοποίηση & ανάλυση","Θεματική ανάλυση/coding (NVivo, ATLAS.ti, MAXQDA)."],
+    ["Αξιοπιστία","Triangulation, member checking, reflexivity, audit trail."]
+  ], tips:["Ηθική έγκριση & συναίνεση συμμετεχόντων είναι υποχρεωτικά.","Κράτα τα δικά σου προκαταλήψεις υπό έλεγχο (reflexivity)."]},
+
+  exp:{title:"Πειραματική / εργαστηριακή", icon:"🧪", steps:[
+    ["Σχεδιασμός πειράματος","Ομάδες ελέγχου/παρέμβασης, τυχαιοποίηση, τυφλοποίηση."],
+    ["Πρωτόκολλο & ηθική","Λεπτομερές πρωτόκολλο, άδειες (βιοηθική/ζώα/άνθρωποι)."],
+    ["Εκτέλεση & μετρήσεις","Βαθμονόμηση οργάνων, επαναληψιμότητα, καταγραφή συνθηκών."],
+    ["Ανάλυση","Στατιστική σύγκριση ομάδων, effect sizes, error analysis."],
+    ["Επαναληπτικότητα","Replication & δημοσίευση αρνητικών αποτελεσμάτων."]
+  ], tips:["Πιλοτικό πείραμα σώζει μήνες.","Τεκμηρίωσε ΚΑΘΕ παράμετρο — αλλιώς δεν αναπαράγεται."]},
+
+  theo:{title:"Θεωρητική / μαθηματική", icon:"📐", steps:[
+    ["Ορισμοί & αξιώματα","Καθόρισε αυστηρά το πλαίσιο & τις παραδοχές."],
+    ["Διατύπωση θεωρημάτων","Προτάσεις/λήμματα με σαφείς προϋποθέσεις."],
+    ["Αποδείξεις","Αυστηρότητα, έλεγχος ακραίων περιπτώσεων, αντιπαραδείγματα."],
+    ["Σύνδεση με βιβλιογραφία","Πού βελτιώνεις/γενικεύεις υπάρχοντα αποτελέσματα."],
+    ["(Προαιρετικά) αριθμητική επαλήθευση","Προσομοιώσεις που στηρίζουν τη θεωρία."]
+  ], tips:["Ξεκίνα από απλές περιπτώσεις.","Γράφε τις αποδείξεις σαν να τις διαβάζει αυστηρός κριτής."]},
+
+  comp:{title:"Υπολογιστική / μοντελοποίηση", icon:"💻", steps:[
+    ["Ορισμός προβλήματος & baseline","Ποιο πρόβλημα, ποια η υπάρχουσα λύση-αναφορά;"],
+    ["Δεδομένα & προεπεξεργασία","Καθαρισμός, splits, διαρροή δεδομένων (leakage) — προσοχή."],
+    ["Μοντέλο/αλγόριθμος","Σχεδίαση, εκπαίδευση, hyperparameter tuning."],
+    ["Αξιολόγηση","Κατάλληλες μετρικές, cross-validation, στατιστική σημαντικότητα."],
+    ["Αναπαραγωγιμότητα","Κώδικας σε repo, seeds, περιβάλλον (Docker), datasets."]
+  ], tips:["Πάντα σύγκρινε με ισχυρά baselines.","Ablation studies δείχνουν τι πραγματικά μετράει."]},
+
+  mixed:{title:"Μεικτή μεθοδολογία", icon:"🔀", steps:[
+    ["Λογική συνδυασμού","Γιατί χρειάζεσαι και ποιοτικά και ποσοτικά; (explanatory/exploratory/convergent)"],
+    ["Σχεδιασμός φάσεων","Σειρά ή παραλληλία των δύο σκελών & πώς συνδέονται."],
+    ["Συλλογή","Και τα δύο είδη δεδομένων με αυστηρότητα το καθένα."],
+    ["Ολοκλήρωση (integration)","Joint displays — πώς τα ευρήματα μιλούν μεταξύ τους."],
+    ["Ερμηνεία","Meta-inferences από τη σύνθεση."]
+  ], tips:["Το πιο δύσκολο κομμάτι είναι η ΟΛΟΚΛΗΡΩΣΗ, όχι η συλλογή."]},
+
+  review:{title:"Συστηματική ανασκόπηση / μετα-ανάλυση", icon:"📖", steps:[
+    ["Πρωτόκολλο (PRISMA)","Ερώτημα (PICO), κριτήρια ένταξης/αποκλεισμού, προεγγραφή (PROSPERO)."],
+    ["Στρατηγική αναζήτησης","Λέξεις-κλειδιά & βάσεις — τεκμηριωμένη & αναπαραγώγιμη."],
+    ["Επιλογή & αξιολόγηση","Screening 2 κριτών, εκτίμηση ποιότητας/bias."],
+    ["Εξαγωγή δεδομένων","Τυποποιημένη φόρμα εξαγωγής."],
+    ["Σύνθεση","Αφηγηματική ή μετα-ανάλυση (forest plots, heterogeneity)."]
+  ], tips:["Ακολούθησε PRISMA flow diagram.","Καλή για 1ο έτος — χτίζει βάση για όλη τη διατριβή."]},
+
+  applied:{title:"Εφαρμοσμένη / σχεδιαστική (Design Science)", icon:"🛠️", steps:[
+    ["Πρόβλημα πραγματικού κόσμου","Ανάγκη οργανισμού/κοινότητας — τεκμηρίωσε τη σημασία."],
+    ["Σχεδίαση τεχνουργήματος","Σύστημα, μέθοδος, μοντέλο ή πλαίσιο (artifact)."],
+    ["Υλοποίηση","Prototype/pilot σε πραγματικό περιβάλλον."],
+    ["Αξιολόγηση","Δοκιμή χρηστικότητας/αποτελεσματικότητας με μετρικές & χρήστες."],
+    ["Γενίκευση","Design principles που ισχύουν πέρα από τη μία περίπτωση."]
+  ], tips:["Σύνδεσε το artifact με θεωρία — αλλιώς είναι απλό project.","Εμπλοκή stakeholders από την αρχή."]}
+};
+
+/* Tips */
+const TIPS = [
+  ["🎯 Επιλογή θέματος","Διάλεξε κάτι που (α) σε ενθουσιάζει για 4+ χρόνια, (β) είναι εφικτό με τους πόρους σου, (γ) έχει ερευνητικό κενό. Το πάθος χωρίς εφικτότητα οδηγεί σε εξάντληση."],
+  ["👤 Επιβλέπων","Το πιο κρίσιμο πρόσωπο. Ψάξε δημοσιεύσεις του, μίλα με τρέχοντες/πρώην φοιτητές του. Ταίριαξε στυλ επίβλεψης (hands-on vs ελευθερία) με τις ανάγκες σου."],
+  ["💶 Χρηματοδότηση","Υποτροφίες ΙΚΥ, ΕΛΙΔΕΚ, Marie Skłodowska-Curie (ΕΕ), Erasmus+, ερευνητικά προγράμματα του εργαστηρίου. Ξεκίνα την αναζήτηση 6-12 μήνες πριν."],
+  ["📝 Δημοσιεύσεις","Στόχευσε ποιότητα (peer-review, καλά journals/συνέδρια) όχι ποσότητα. Απόφυγε predatory journals (έλεγξε σε DOAJ / Think-Check-Submit)."],
+  ["⏱️ Διαχείριση χρόνου","Το διδακτορικό είναι μαραθώνιος. Μικροί εβδομαδιαίοι στόχοι > μεγάλα άπιαστα ορόσημα. Γράφε λίγο κάθε μέρα."],
+  ["🧠 Ψυχική υγεία","Το impostor syndrome & η μοναξιά είναι συχνά. Χτίσε δίκτυο συν-υποψηφίων, κράτα ζωή εκτός έρευνας, ζήτα βοήθεια έγκαιρα."],
+  ["📂 Οργάνωση","Reference manager (Zotero), backup (cloud+τοπικό), ερευνητικό ημερολόγιο, version control για κώδικα/κείμενα (Git)."],
+  ["⚖️ Ηθική & ακεραιότητα","Έγκριση επιτροπής ηθικής όπου χρειάζεται, αποφυγή λογοκλοπής, διαφάνεια δεδομένων, σωστή απόδοση συνεισφορών."],
+  ["🌐 Δικτύωση","Συνέδρια, θερινά σχολεία, συνεργασίες. Η ορατότητα ανοίγει πόρτες για μεταδιδακτορικά & θέσεις."],
+  ["🏁 Στρατηγική εξόδου","Σκέψου από νωρίς τι θες μετά (ακαδημία/βιομηχανία/δημόσιο) και χτίσε ανάλογα δεξιότητες & δίκτυο."]
+];
+
+/* ============ STATE ============ */
+const store = {
+  get folder(){return JSON.parse(localStorage.getItem('dd_folder')||'{"topics":[],"plan":null}')},
+  set folder(v){localStorage.setItem('dd_folder',JSON.stringify(v))}
+};
+
+/* ============ INIT ============ */
+function opt(o){return Object.entries(o).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}
+document.getElementById('fltField').innerHTML='<option value="">Κάθε πεδίο</option>'+opt(FIELDS);
+document.getElementById('fltType').innerHTML='<option value="">Κάθε τύπο έρευνας</option>'+opt(TYPES);
+document.getElementById('pField').innerHTML='<option value="">— διάλεξε (ή άφησε κενό) —</option>'+opt(FIELDS);
+document.getElementById('srcField').innerHTML='<option value="general">Γενικές πηγές (όλα τα πεδία)</option>'+opt(FIELDS);
+document.getElementById('tlType').innerHTML=opt(TYPES);
+document.getElementById('pTypePills').innerHTML=Object.entries(TYPES).map(([k,v])=>`<span class="chip pick" data-t="${k}" onclick="this.classList.toggle('on')">${v}</span>`).join('');
+document.getElementById('guidePills').innerHTML=`<span class="chip pick on" data-g="general" onclick="pickGuide('general',this)">🧭 Γενικά βήματα</span>`+Object.entries(GUIDE).filter(([k])=>k!=='general').map(([k,g])=>`<span class="chip pick" data-g="${k}" onclick="pickGuide('${k}',this)">${g.icon} ${g.title}</span>`).join('');
+
+/* ============ NAV ============ */
+function go(v){
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.v===v));
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('active',s.id==='v-'+v));
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(v==='folder')renderFolder();
+}
+document.getElementById('tabs').addEventListener('click',e=>{if(e.target.dataset.v)go(e.target.dataset.v)});
+
+/* ============ THEME ============ */
+const themeBtn=document.getElementById('themeBtn');
+function setTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('dd_theme',t)}
+setTheme(localStorage.getItem('dd_theme')||'dark');
+themeBtn.onclick=()=>setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
+
+/* ============ FULLSCREEN ============ */
+const fsBtn=document.getElementById('fsBtn');
+function isFs(){return document.fullscreenElement||document.webkitFullscreenElement}
+fsBtn.onclick=()=>{
+  try{
+    if(!isFs()){
+      const el=document.documentElement;
+      (el.requestFullscreen||el.webkitRequestFullscreen||el.msRequestFullscreen).call(el);
+    }else{
+      (document.exitFullscreen||document.webkitExitFullscreen||document.msExitFullscreen).call(document);
+    }
+  }catch(e){toast('Η πλήρης οθόνη δεν υποστηρίζεται εδώ')}
+};
+document.addEventListener('fullscreenchange',()=>{fsBtn.textContent=isFs()?'⛶ Έξοδος':'⛶ Οθόνη'});
+document.addEventListener('webkitfullscreenchange',()=>{fsBtn.textContent=isFs()?'⛶ Έξοδος':'⛶ Οθόνη'});
+
+/* ============ PWA (service worker + install) ============ */
+(function pwa(){
+  // Service worker: δουλεύει σε http(s)/localhost (π.χ. tiiny.site), όχι σε file://
+  if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+  }
+  // Κουμπί εγκατάστασης (Android/Chrome/Edge)
+  let deferred=null;
+  const btn=document.getElementById('installBtn');
+  window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;if(btn)btn.style.display='inline-block';});
+  if(btn)btn.onclick=async()=>{
+    if(deferred){deferred.prompt();await deferred.userChoice;deferred=null;btn.style.display='none';}
+    else{toast('iPhone: Κοινή χρήση → «Προσθήκη στην αρχική οθόνη»');}
+  };
+  window.addEventListener('appinstalled',()=>{if(btn)btn.style.display='none';toast('Εγκαταστάθηκε ✓');});
+  // iOS Safari: δεν έχει beforeinstallprompt — δείξε το κουμπί ως οδηγία
+  const isIOS=/iP(hone|ad|od)/.test(navigator.platform)||(navigator.userAgent.includes('Mac')&&'ontouchend' in document);
+  const standalone=window.matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+  if(isIOS&&!standalone&&btn)btn.style.display='inline-block';
+})();
+
+/* ============ EXPLORE ============ */
+function diffStars(d){return '★'.repeat(d)+'☆'.repeat(3-d)}
+function fieldTag(f){return `<span class="tag" style="background:var(--chip);color:var(--accent)">${FIELDS[f]}</span>`}
+function renderCatalog(){
+  const q=document.getElementById('fltSearch').value.toLowerCase().trim();
+  const f=document.getElementById('fltField').value, ty=document.getElementById('fltType').value, d=document.getElementById('fltDiff').value;
+  const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'');
+  const list=CATALOG.filter(c=>{
+    if(f&&c.f!==f)return false;
+    if(ty&&!c.ty.includes(ty))return false;
+    if(d&&c.d!=d)return false;
+    if(q){const hay=norm((c.t+' '+c.k+' '+c.desc).toLowerCase());if(!norm(q).split(/\s+/).every(w=>hay.includes(w)))return false;}
+    return true;
+  });
+  document.getElementById('exploreCount').textContent=`${list.length} θέματα`;
+  const g=document.getElementById('catGrid');
+  if(!list.length){g.innerHTML='<div class="empty">Δεν βρέθηκαν θέματα. Δοκίμασε άλλα φίλτρα ή πρότεινε το δικό σου στην καρτέλα «Πρόταση».</div>';return}
+  g.innerHTML=list.map((c,i)=>{const idx=CATALOG.indexOf(c);return `
+    <div class="topic">
+      <div class="meta">${fieldTag(c.f)} ${c.ty.map(t=>`<span class="chip">${TYPES[t]}</span>`).join('')}</div>
+      <h4>${c.t}</h4>
+      <div class="desc">${c.desc}</div>
+      <div class="foot">
+        <span class="stars small" title="Δυσκολία">${diffStars(c.d)}</span>
+        <span><button class="btn ghost sm" onclick="openTopic(${idx})">Λεπτομέρειες</button>
+        <button class="btn sm" onclick="saveTopic(${idx})">＋ Φάκελος</button></span>
+      </div>
+    </div>`}).join('');
+}
+['fltSearch','fltField','fltType','fltDiff'].forEach(id=>document.getElementById(id).addEventListener('input',renderCatalog));
+renderCatalog();
+
+/* ============ TOPIC MODAL ============ */
+function openTopic(idx){
+  const c=CATALOG[idx];
+  const srcKey=SOURCES[c.f]?c.f:'general';
+  const box=document.getElementById('modalBox');
+  box.innerHTML=`
+    <button class="close" onclick="closeModal()">✕</button>
+    <div class="meta" style="margin-bottom:8px">${fieldTag(c.f)} ${c.ty.map(t=>`<span class="chip">${TYPES[t]}</span>`).join('')}</div>
+    <h3>${c.t}</h3>
+    <p class="muted">${c.desc}</p>
+    <div class="kv">
+      <b>Δυσκολία</b><span class="stars">${diffStars(c.d)}</span>
+      <b>Τύπος έρευνας</b><span>${c.ty.map(t=>TYPES[t]).join(', ')}</span>
+      <b>Προτεινόμενες πηγές</b><span>${(SOURCES[srcKey]||[]).slice(0,4).map(s=>s[0]).join(' · ')}</span>
+    </div>
+    <div class="callout"><b>Πιθανά ερευνητικά ερωτήματα:</b>
+      <ul class="clean">${genQuestions(c).map(q=>`<li>${q}</li>`).join('')}</ul>
+    </div>
+    <div class="callout"><b>Προτεινόμενα πρώτα βήματα:</b>
+      <ul class="clean">
+        <li>Διάβασε 2-3 πρόσφατες ανασκοπήσεις (reviews) στο πεδίο.</li>
+        <li>Δες αν υπάρχει παρόμοια ελληνική διατριβή στο <b>didaktorika.gr</b>.</li>
+        <li>Εντόπισε 3-4 εργαστήρια/επιβλέποντες που δουλεύουν πάνω σε αυτό.</li>
+        <li>Άνοιξε τον <b>Οδηγό Εκπόνησης</b> για τη μεθοδολογία (${TYPES[c.ty[0]]}).</li>
+      </ul>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+      <button class="btn" onclick="saveTopic(${idx});">＋ Αποθήκευση στον φάκελο</button>
+      <button class="btn ghost" onclick="closeModal();go('sources');document.getElementById('srcField').value='${srcKey}';renderSources()">📚 Πηγές πεδίου</button>
+      <button class="btn ghost" onclick="closeModal();go('guide');pickGuideByKey('${c.ty[0]}')">🧭 Μεθοδολογία</button>
+    </div>`;
+  document.getElementById('modalBg').classList.add('on');
+}
+function genQuestions(c){
+  const base=c.t.replace(/^[Α-Ω]/,m=>m.toLowerCase());
+  return [
+    `Σε ποιο βαθμό ${base.length>60?'το φαινόμενο':'αυτό'} επηρεάζει τα αποτελέσματα-στόχους;`,
+    `Ποιοι παράγοντες καθορίζουν την αποτελεσματικότητα στην περίπτωση «${c.t}»;`,
+    `Πώς συγκρίνεται η προτεινόμενη προσέγγιση με τις υπάρχουσες μεθόδους;`
+  ];
+}
+function closeModal(){document.getElementById('modalBg').classList.remove('on')}
+
+/* ============ MATCH ENGINE ============ */
+function runMatch(){
+  const field=document.getElementById('pField').value;
+  const interest=document.getElementById('pInterest').value.toLowerCase();
+  const goal=document.getElementById('pGoal').value;
+  const res=document.getElementById('pRes').value;
+  const time=document.getElementById('pTime').value;
+  const years=+document.getElementById('pYears').value;
+  const types=[...document.querySelectorAll('#pTypePills .chip.on')].map(c=>c.dataset.t);
+  const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+  const kws=norm(interest).split(/[^a-zα-ω0-9]+/i).filter(w=>w.length>2);
+
+  const scored=CATALOG.map(c=>{
+    let s=0; const hay=norm(c.t+' '+c.k+' '+c.desc);
+    if(field&&c.f===field)s+=25;
+    kws.forEach(w=>{if(hay.includes(w))s+=10});
+    types.forEach(t=>{if(c.ty.includes(t))s+=8});
+    if(res==='lab'&&c.ty.includes('exp'))s+=6;
+    if(res==='field'&&(c.ty.includes('qual')||c.ty.includes('mixed')))s+=6;
+    if(res==='lit'&&c.ty.includes('review'))s+=6;
+    if(res==='data'&&(c.ty.includes('quant')||c.ty.includes('comp')))s+=6;
+    if(time==='part'&&c.d===1)s+=5; if(time==='part'&&c.d===3)s-=4;
+    if(years<=3&&c.d===3)s-=3; if(years>=5&&c.d===3)s+=2;
+    if(goal==='industry'&&(c.ty.includes('applied')||c.ty.includes('comp')))s+=4;
+    if(goal==='academia'&&(c.ty.includes('theo')||c.ty.includes('exp')))s+=3;
+    if(goal==='public'&&(c.f==='law'||c.f==='econ'||c.f==='soc'))s+=4;
+    return {c,s};
+  }).sort((a,b)=>b.s-a.s);
+
+  const top=scored.filter(x=>x.s>0).slice(0,5);
+  const out=document.getElementById('matchOut');
+  const mainType=types[0]||(top[0]?top[0].c.ty[0]:'general');
+  const srcKey=field&&SOURCES[field]?field:(top[0]?top[0].c.f:'general');
+
+  let html=`<div class="result-block"><h3>🎯 Θέματα που σου ταιριάζουν</h3>`;
+  if(!top.length){
+    html+=`<p class="muted">Δεν βρέθηκε ισχυρό ταίριασμα — αλλά αυτό είναι ευκαιρία! Το ενδιαφέρον σου μπορεί να είναι πρωτότυπο. Δες το προσχέδιο πρότασης παρακάτω και τον Οδηγό Εκπόνησης.</p>`;
+  } else {
+    html+=top.map(x=>{const idx=CATALOG.indexOf(x.c);return `
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)">
+        <span class="score">${Math.min(99,Math.round(x.s))}%</span>
+        <div style="flex:1">
+          <b>${x.c.t}</b><br>
+          <span class="muted small">${fieldTag(x.c.f)} · ${x.c.ty.map(t=>TYPES[t]).join(', ')} · ${diffStars(x.c.d)}</span>
+          <div class="small muted" style="margin-top:3px">${x.c.desc}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <button class="btn sm" onclick="openTopic(${idx})">Δες</button>
+          <button class="btn ghost sm" onclick="saveTopic(${idx})">＋</button>
+        </div>
+      </div>`}).join('');
+  }
+  html+=`</div>`;
+
+  // Custom proposal draft
+  const titleSeed = interest.trim() ? interest.trim().replace(/^./,m=>m.toUpperCase()) : (top[0]?top[0].c.t:'Το θέμα σου');
+  const plan={
+    title:titleSeed, field:field?FIELDS[field]:'—', goal:document.getElementById('pGoal').selectedOptions[0].text,
+    types:types.length?types.map(t=>TYPES[t]).join(', '):(top[0]?top[0].c.ty.map(t=>TYPES[t]).join(', '):'—'),
+    years, mainType, srcKey, created:new Date().toLocaleDateString('el-GR')
+  };
+  html+=`<div class="result-block"><h3>📝 Προσχέδιο πρότασης (κομμένο στα μέτρα σου)</h3>
+    <div class="kv">
+      <b>Δουλευτικός τίτλος</b><span>${plan.title}</span>
+      <b>Πεδίο</b><span>${plan.field}</span>
+      <b>Τύπος έρευνας</b><span>${plan.types}</span>
+      <b>Στόχος</b><span>${plan.goal}</span>
+      <b>Ορίζοντας</b><span>${years} χρόνια (${time==='part'?'μερική':'πλήρης'} απασχόληση)</span>
+    </div>
+    <h4 style="color:var(--accent)">Ερευνητικά ερωτήματα (πρόχειρα)</h4>
+    <ul class="clean">
+      <li>Ποιο είναι το κενό στη βιβλιογραφία γύρω από «${plan.title}»;</li>
+      <li>Ποια μέθοδος (${plan.types}) απαντά καλύτερα στο κεντρικό ερώτημα;</li>
+      <li>Ποια δεδομένα/πηγές απαιτούνται και είναι διαθέσιμα;</li>
+      <li>Ποια θα είναι η πρωτότυπη συνεισφορά στη γνώση;</li>
+    </ul>
+    <h4 style="color:var(--accent)">Προτεινόμενη μεθοδολογία</h4>
+    <p class="small">${GUIDE[mainType]?GUIDE[mainType].title:'Γενική προσέγγιση'} — δες αναλυτικά βήματα στον Οδηγό Εκπόνησης.</p>
+    <h4 style="color:var(--accent)">Πού να ψάξεις στοιχεία</h4>
+    <div class="pill-row">${(SOURCES[srcKey]||SOURCES.general).slice(0,5).map(s=>`<span class="chip">${s[0]}</span>`).join('')}</div>
+    <h4 style="color:var(--accent)">Επόμενα βήματα</h4>
+    <ul class="clean">
+      <li>Έλεγξε το <b>didaktorika.gr</b> & Google Scholar για υπάρχουσες διατριβές.</li>
+      <li>Άνοιξε τη <b>Μεθοδολογία</b> και το <b>Χρονοδιάγραμμα ${years} ετών</b>.</li>
+      <li>Εντόπισε 3 πιθανούς επιβλέποντες με σχετικές δημοσιεύσεις.</li>
+      <li>Γράψε 1 σελίδα concept note και ζήτα feedback.</li>
+    </ul>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+      <button class="btn" onclick='savePlan(${JSON.stringify(plan).replace(/'/g,"&#39;")})'>💾 Αποθήκευση στον φάκελο</button>
+      <button class="btn ghost" onclick="go('guide');pickGuideByKey('${mainType}')">🧭 Μεθοδολογία</button>
+      <button class="btn ghost" onclick="go('timeline');document.getElementById('tlType').value='${mainType}';document.getElementById('tlYears').value='${years}';buildTimeline()">🗓️ Χρονοδιάγραμμα</button>
+      <button class="btn ghost" onclick="go('sources');document.getElementById('srcField').value='${srcKey}';renderSources()">📚 Πηγές</button>
+    </div>
+  </div>`;
+  out.innerHTML=html;
+  out.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function clearMatch(){
+  document.getElementById('pInterest').value='';document.getElementById('pField').value='';
+  document.querySelectorAll('#pTypePills .chip.on').forEach(c=>c.classList.remove('on'));
+  document.getElementById('matchOut').innerHTML='';
+}
+
+/* ============ GUIDE ============ */
+function pickGuide(k,el){
+  document.querySelectorAll('#guidePills .chip').forEach(c=>c.classList.remove('on'));
+  if(el)el.classList.add('on'); else {const p=document.querySelector(`#guidePills .chip[data-g="${k}"]`);if(p)p.classList.add('on')}
+  const g=GUIDE[k];
+  document.getElementById('guideOut').innerHTML=`
+    <div class="card">
+      <h2 class="sec">${g.icon} ${g.title}</h2>
+      ${g.steps.map((s,i)=>`<div class="step"><div class="num">${i+1}</div><div class="body"><b>${s[0]}</b><div class="muted small">${s[1]}</div></div></div>`).join('')}
+      <div class="callout"><b>💡 Συμβουλές:</b><ul class="clean">${g.tips.map(t=>`<li>${t}</li>`).join('')}</ul></div>
+    </div>`;
+}
+function pickGuideByKey(k){go('guide');pickGuide(GUIDE[k]?k:'general')}
+pickGuide('general');
+
+/* ============ SOURCES ============ */
+function renderSources(){
+  const f=document.getElementById('srcField').value;
+  const list=SOURCES[f]||SOURCES.general;
+  const gen=SOURCES.general;
+  let html=`<div class="card"><h3>${f==='general'?'Γενικές πηγές':FIELDS[f]}</h3>
+    <div class="src-grid">${list.map(s=>`<div class="src"><b>${s[0]}</b><p>${s[1]}</p></div>`).join('')}</div>`;
+  if(f!=='general'){
+    html+=`<h3 style="margin-top:18px">Γενικές πηγές (χρήσιμες για όλους)</h3>
+    <div class="src-grid">${gen.map(s=>`<div class="src"><b>${s[0]}</b><p>${s[1]}</p></div>`).join('')}</div>`;
+  }
+  html+=`<div class="callout" style="margin-top:16px"><b>🔍 Πώς να ψάχνεις αποτελεσματικά:</b>
+    <ul class="clean">
+      <li>Χρησιμοποίησε boolean τελεστές: <code>AND / OR / NOT</code> & εισαγωγικά για φράσεις.</li>
+      <li>Ξεκίνα από <b>ανασκοπήσεις (review / meta-analysis)</b> για γρήγορη εικόνα.</li>
+      <li>Ακολούθησε τις <b>αναφορές</b> (backward) & το «cited by» (forward).</li>
+      <li>Ρύθμισε <b>alerts</b> για νέα papers στο θέμα σου.</li>
+      <li>Κράτα τα πάντα σε <b>Zotero/Mendeley</b> με tags.</li>
+    </ul></div></div>`;
+  document.getElementById('srcOut').innerHTML=html;
+}
+document.getElementById('srcField').addEventListener('change',renderSources);
+renderSources();
+
+/* ============ TIMELINE ============ */
+function buildTimeline(){
+  const y=+document.getElementById('tlYears').value;
+  const ty=document.getElementById('tlType').value;
+  const phases=[];
+  phases.push(["Έτος 1 — Θεμελίωση","Βιβλιογραφική επισκόπηση · οριστικοποίηση θέματος & ερωτημάτων · συγγραφή & έγκριση πρότασης (proposal) · παρακολούθηση μαθημάτων/σεμιναρίων · ηθική έγκριση αν χρειάζεται."]);
+  const dataPhase={quant:"σχεδιασμός & συλλογή δεδομένων / ερωτηματολογίων",qual:"συνεντεύξεις & έρευνα πεδίου",exp:"στήσιμο πειραμάτων & πιλότος",theo:"ανάπτυξη θεωρητικού πλαισίου & πρώτα θεωρήματα",comp:"συλλογή δεδομένων & ανάπτυξη πρώτου μοντέλου (baseline)",mixed:"συλλογή ποσοτικών & ποιοτικών δεδομένων",review:"συστηματική αναζήτηση & screening",applied:"σχεδίαση & πρώτο prototype"}[ty]||"πρώτη φάση συλλογής/ανάλυσης";
+  if(y===3){
+    phases.push(["Έτος 2 — Έρευνα",`Κύρια φάση: ${dataPhase} · ανάλυση · 1η δημοσίευση/υποβολή · παρουσίαση σε συνέδριο.`]);
+    phases.push(["Έτος 3 — Ολοκλήρωση","Τελική ανάλυση · 2η δημοσίευση · συγγραφή διατριβής · υποβολή & υποστήριξη (viva)."]);
+  } else if(y===4){
+    phases.push(["Έτος 2 — Έρευνα Α",`${dataPhase} · πιλοτικά αποτελέσματα · 1η υποβολή paper.`]);
+    phases.push(["Έτος 3 — Έρευνα Β","Δεύτερη μελέτη/πείραμα · βάθεμα ανάλυσης · 2η δημοσίευση · διεθνές συνέδριο."]);
+    phases.push(["Έτος 4 — Συγγραφή","Σύνθεση αποτελεσμάτων · 3η δημοσίευση · συγγραφή & υποστήριξη διατριβής."]);
+  } else {
+    phases.push(["Έτος 2 — Έρευνα Α",`${dataPhase} · 1η δημοσίευση.`]);
+    phases.push(["Έτος 3 — Έρευνα Β","Επέκταση μελετών · 2η δημοσίευση · συνέδρια."]);
+    phases.push(["Έτος 4 — Έρευνα Γ","Τρίτη μελέτη · 3η δημοσίευση · έναρξη συγγραφής."]);
+    phases.push(["Έτος 5 — Ολοκλήρωση","Τελική συγγραφή · διορθώσεις · υποβολή & υποστήριξη."]);
+  }
+  const cross=["📌 Καθ' όλη τη διάρκεια: εβδομαδιαία συνάντηση με επιβλέποντα · ενημέρωση reference library · ερευνητικό ημερολόγιο · backups · δικτύωση.","🏁 6 μήνες πριν: έλεγχος κανονισμών κατάθεσης, ορισμός εξεταστικής επιτροπής, mock viva."];
+  document.getElementById('tlOut').innerHTML=`
+    <div class="card">
+      <h2 class="sec">🗓️ Πλάνο ${y} ετών — ${TYPES[ty]}</h2>
+      <div class="timeline">
+        ${phases.map((p,i)=>`<div class="tl-item"><div class="yr">Φάση ${i+1}</div><h4>${p[0]}</h4><p class="muted small">${p[1]}</p></div>`).join('')}
+      </div>
+      <div class="callout">${cross.map(c=>`<div style="margin:4px 0">${c}</div>`).join('')}</div>
+      <button class="btn ghost sm" onclick="window.print()">🖨️ Εκτύπωση πλάνου</button>
+    </div>`;
+}
+buildTimeline();
+
+/* ============ TIPS ============ */
+document.getElementById('tipsOut').innerHTML=`<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+  ${TIPS.map(t=>`<div class="card"><h3>${t[0]}</h3><p class="muted small">${t[1]}</p></div>`).join('')}
+</div>
+<div class="card" style="margin-top:16px"><h3>📋 Checklist πριν ξεκινήσεις</h3>
+<ul class="clean">
+<li>✅ Έχω σαφές ερευνητικό ερώτημα με πρωτότυπη συνεισφορά.</li>
+<li>✅ Βρήκα επιβλέποντα που ταιριάζει (θεματικά & προσωπικά).</li>
+<li>✅ Ξέρω πού θα βρω δεδομένα/πηγές — και έχω πρόσβαση.</li>
+<li>✅ Έχω σκεφτεί χρηματοδότηση/υποτροφία.</li>
+<li>✅ Το θέμα είναι εφικτό στον χρόνο & πόρους μου.</li>
+<li>✅ Έχω ρεαλιστικό χρονοδιάγραμμα με ορόσημα.</li>
+</ul></div>`;
+
+/* ============ FOLDER ============ */
+function saveTopic(idx){
+  const f=store.folder; const c=CATALOG[idx];
+  if(!f.topics.some(t=>t.t===c.t)){f.topics.push({t:c.t,f:c.f,ty:c.ty,d:c.d,desc:c.desc});store.folder=f;toast('Προστέθηκε στον φάκελο ✓')}
+  else toast('Υπάρχει ήδη στον φάκελο');
+}
+function savePlan(plan){const f=store.folder;f.plan=plan;store.folder=f;toast('Το σχέδιο αποθηκεύτηκε ✓')}
+function renderFolder(){
+  const f=store.folder;const out=document.getElementById('folderOut');
+  let html='';
+  if(f.plan){
+    const p=f.plan;
+    html+=`<div class="result-block"><h3>📝 Το σχέδιό μου</h3>
+      <div class="kv">
+        <b>Τίτλος</b><span>${p.title}</span>
+        <b>Πεδίο</b><span>${p.field}</span>
+        <b>Τύπος</b><span>${p.types}</span>
+        <b>Στόχος</b><span>${p.goal}</span>
+        <b>Ορίζοντας</b><span>${p.years} χρόνια</span>
+        <b>Δημιουργήθηκε</b><span>${p.created}</span>
+      </div></div>`;
+  }
+  html+=`<h3 style="margin:8px 0">⭐ Αποθηκευμένα θέματα (${f.topics.length})</h3>`;
+  if(!f.topics.length){html+='<div class="empty">Δεν έχεις αποθηκεύσει θέματα ακόμη. Πήγαινε στην «Εξερεύνηση» ή «Πρόταση».</div>'}
+  else{
+    html+='<div class="cat-grid">'+f.topics.map((c,i)=>`
+      <div class="topic">
+        <div class="meta">${fieldTag(c.f)} ${c.ty.map(t=>`<span class="chip">${TYPES[t]}</span>`).join('')}</div>
+        <h4>${c.t}</h4><div class="desc">${c.desc}</div>
+        <div class="foot"><span class="stars small">${diffStars(c.d)}</span>
+        <button class="btn ghost sm" onclick="removeTopic(${i})">✕ Αφαίρεση</button></div>
+      </div>`).join('')+'</div>';
+  }
+  out.innerHTML=html;
+}
+function removeTopic(i){const f=store.folder;f.topics.splice(i,1);store.folder=f;renderFolder();toast('Αφαιρέθηκε')}
+function clearFolder(){if(confirm('Καθαρισμός όλου του φακέλου (θέματα + σχέδιο);')){store.folder={topics:[],plan:null};renderFolder();toast('Ο φάκελος καθαρίστηκε')}}
+
+/* ============ EXPORT WORD ============ */
+function exportWord(){
+  const f=store.folder;
+  let body=`<h1>Ο φάκελός μου — Υποψήφιος Διδάκτορας</h1><p>Ημερομηνία: ${new Date().toLocaleDateString('el-GR')}</p>`;
+  if(f.plan){const p=f.plan;
+    body+=`<h2>Σχέδιο πρότασης</h2><table border="1" cellpadding="6" style="border-collapse:collapse">
+    <tr><td><b>Τίτλος</b></td><td>${p.title}</td></tr>
+    <tr><td><b>Πεδίο</b></td><td>${p.field}</td></tr>
+    <tr><td><b>Τύπος έρευνας</b></td><td>${p.types}</td></tr>
+    <tr><td><b>Στόχος</b></td><td>${p.goal}</td></tr>
+    <tr><td><b>Ορίζοντας</b></td><td>${p.years} χρόνια</td></tr></table>`;
+  }
+  if(f.topics.length){
+    body+='<h2>Αποθηκευμένα θέματα</h2><ol>'+f.topics.map(c=>`<li><b>${c.t}</b> — ${FIELDS[c.f]} (${c.ty.map(t=>TYPES[t]).join(', ')})<br><i>${c.desc}</i></li>`).join('')+'</ol>';
+  }
+  if(!f.plan&&!f.topics.length){toast('Ο φάκελος είναι άδειος');return}
+  const html=`<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word'><head><meta charset="utf-8"></head><body>${body}</body></html>`;
+  const blob=new Blob(['﻿',html],{type:'application/msword'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Fakelos_Didaktora.doc';a.click();
+  toast('Εξήχθη σε Word ✓');
+}
+
+/* ============ BACKUP EXPORT / IMPORT ============ */
+function exportBackup(){
+  const f=store.folder;
+  if(!f.plan&&!f.topics.length){toast('Ο φάκελος είναι άδειος');return}
+  const data={app:'DIDAKTOR360',version:1,exported:new Date().toISOString(),folder:f};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='Fakelos_Didaktora.json';a.click();
+  toast('Το αρχείο κατέβηκε ✓');
+}
+function importBackup(input){
+  const file=input.files&&input.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);
+      const inc=data&&data.folder?data.folder:data; // δέχεται & «γυμνό» folder
+      if(!inc||(!Array.isArray(inc.topics)&&!inc.plan))throw new Error('bad');
+      const cur=store.folder;
+      const merge=confirm('«OK» = ΣΥΓΧΩΝΕΥΣΗ με τον υπάρχοντα φάκελο.\n«Άκυρο» = ΑΝΤΙΚΑΤΑΣΤΑΣΗ (σβήνει τα τωρινά).');
+      let topics=Array.isArray(inc.topics)?inc.topics:[];
+      let plan=inc.plan||null;
+      if(merge){
+        const seen=new Set(cur.topics.map(t=>t.t));
+        topics=cur.topics.concat(topics.filter(t=>!seen.has(t.t)));
+        plan=plan||cur.plan;
+      }
+      store.folder={topics,plan};
+      renderFolder();
+      toast('Η εισαγωγή ολοκληρώθηκε ✓');
+    }catch(err){toast('⚠️ Μη έγκυρο αρχείο');}
+    input.value='';
+  };
+  reader.readAsText(file,'utf-8');
+}
+
+/* ============ TOAST ============ */
+let toastT;
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2200)}
+</script>
+</body>
+</html>
