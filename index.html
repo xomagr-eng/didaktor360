@@ -153,6 +153,26 @@ ul.clean li{margin:4px 0;font-size:13.5px}
 .stat .box{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 16px;flex:1;min-width:120px}
 .stat .box b{font-size:22px;display:block}
 .stat .box span{font-size:12px;color:var(--muted)}
+/* Οριζόντια συσκευή (κινητό/tablet landscape) → πιο compact header & περισσότερες στήλες */
+@media screen and (orientation:landscape) and (max-height:600px){
+  header.top{backdrop-filter:blur(8px)}
+  .brand{padding:7px 0}
+  .logo{width:36px;height:36px;font-size:19px}
+  .brand h1{font-size:16px}
+  .brand p{display:none}
+  nav.tabs{padding:2px 0 7px}
+  nav.tabs button{padding:6px 12px;font-size:12.5px}
+  main{padding:14px 0 60px}
+  .hero{padding:14px 16px;margin-bottom:12px}
+  .hero h2{font-size:19px}
+  .cat-grid{grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
+  .filters{grid-template-columns:2fr 1fr 1fr 1fr}
+}
+/* Ευρεία οριζόντια οθόνη (tablet/PC) → αξιοποίηση όλου του πλάτους */
+@media screen and (orientation:landscape) and (min-width:1000px){
+  .wrap{max-width:1320px}
+  .cat-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+}
 @media print{
   header.top,nav.tabs,.tbtn,.btn,.filters,.hero .muted{display:none!important}
   body{background:#fff;color:#000}
@@ -195,6 +215,7 @@ ul.clean li{margin:4px 0;font-size:13.5px}
     <h2>Ξεκίνα το διδακτορικό σου με σχέδιο, όχι στην τύχη.</h2>
     <p>Η εφαρμογή σε βοηθά να <b>βρεις</b> θέμα μέσα από μεγάλη γκάμα διδακτορικών όλων των πεδίων, ή να <b>προτείνεις</b> το δικό σου και να πάρεις εξατομικευμένες προτάσεις. Μετά σου δείχνει <b>πώς</b> να το εκπονήσεις: μεθοδολογία, πού να ψάξεις στοιχεία, συμβουλές και χρονοδιάγραμμα — όλα offline.</p>
   </div>
+  <div id="featured"></div>
   <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr))">
     <div class="card"><h3>🔎 Εξερεύνηση θεμάτων</h3><p class="muted small">Ψάξε & φιλτράρισε δεκάδες έτοιμα ερευνητικά θέματα ανά επιστημονικό πεδίο, τύπο έρευνας και δυσκολία.</p><button class="btn sm" onclick="go('explore')">Άνοιγμα →</button></div>
     <div class="card"><h3>💡 Πρόταση & Ταίριασμα</h3><p class="muted small">Δώσε ενδιαφέροντα, πόρους & στόχους. Το εργαλείο ταιριάζει θέματα και χτίζει σχέδιο πρότασης για σένα.</p><button class="btn sm" onclick="go('propose')">Άνοιγμα →</button></div>
@@ -560,8 +581,26 @@ function go(v){
   document.querySelectorAll('.view').forEach(s=>s.classList.toggle('active',s.id==='v-'+v));
   window.scrollTo({top:0,behavior:'smooth'});
   if(v==='folder')renderFolder();
+  try{localStorage.setItem('dd_tab',v)}catch(e){}
 }
 document.getElementById('tabs').addEventListener('click',e=>{if(e.target.dataset.v)go(e.target.dataset.v)});
+
+/* ============ ΘΕΜΑ ΤΗΣ ΗΜΕΡΑΣ ============ */
+function renderFeatured(){
+  const el=document.getElementById('featured'); if(!el)return;
+  const day=Math.floor(Date.now()/864e5);
+  const c=CATALOG[day%CATALOG.length]; const idx=CATALOG.indexOf(c);
+  el.innerHTML=`<div class="card" style="margin-bottom:18px;border-color:var(--accent);background:linear-gradient(135deg,rgba(108,123,255,.10),transparent)">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+      <h3 style="margin:0">✨ Θέμα της ημέρας</h3>${fieldTag(c.f)}</div>
+    <h4 style="margin:9px 0 4px;font-size:16px">${c.t}</h4>
+    <p class="muted small" style="margin:0 0 10px">${c.desc}</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn sm" onclick="openTopic(${idx})">Δες λεπτομέρειες →</button>
+      <button class="btn ghost sm" onclick="saveTopic(${idx})">＋ Φάκελος</button>
+    </div>
+  </div>`;
+}
 
 /* ============ THEME ============ */
 const themeBtn=document.getElementById('themeBtn');
@@ -969,6 +1008,10 @@ function importBackup(input){
 /* ============ TOAST ============ */
 let toastT;
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2200)}
+
+/* ============ ΑΡΧΙΚΟΠΟΙΗΣΗ ΑΡΧΙΚΗΣ ============ */
+renderFeatured();
+try{const last=localStorage.getItem('dd_tab');if(last&&last!=='home'&&document.getElementById('v-'+last))go(last);}catch(e){}
 </script>
 </body>
 </html>
