@@ -105,6 +105,7 @@ textarea{resize:vertical;min-height:80px}
 .tag{display:inline-block;font-size:11px;padding:3px 9px;border-radius:999px;font-weight:700;letter-spacing:.2px}
 .filters{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:10px;margin-bottom:16px}
 @media(max-width:820px){.filters{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){#cmpOut .grid{grid-template-columns:1fr!important}}
 .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
 .topic{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:9px;transition:.15s}
 .topic:hover{border-color:var(--accent);transform:translateY(-2px)}
@@ -197,10 +198,12 @@ ul.clean li{margin:4px 0;font-size:13.5px}
     <nav class="tabs" id="tabs">
       <button data-v="home" class="active">🏠 Αρχική</button>
       <button data-v="explore">🔎 Εξερεύνηση θεμάτων</button>
+      <button data-v="compare">⚖️ Σύγκριση</button>
       <button data-v="propose">💡 Πρόταση & Ταίριασμα</button>
       <button data-v="guide">🧭 Οδηγός Εκπόνησης</button>
       <button data-v="sources">📚 Πηγές & Δεδομένα</button>
       <button data-v="timeline">🗓️ Χρονοδιάγραμμα</button>
+      <button data-v="tools">🧰 Εργαλεία</button>
       <button data-v="tips">✅ Συμβουλές</button>
       <button data-v="folder">📁 Ο Φάκελός μου</button>
     </nav>
@@ -356,6 +359,109 @@ ul.clean li{margin:4px 0;font-size:13.5px}
     <p class="muted small" style="margin:10px 0 0">Αποθηκευμένα θέματα & το τελευταίο σχέδιο πρότασης μένουν στον browser σου (offline). Με την <b>Εξαγωγή αρχείου</b> κατεβάζεις ένα <code>.json</code> για μεταφορά σε άλλη συσκευή (π.χ. κινητό → υπολογιστή) και με την <b>Εισαγωγή</b> το φορτώνεις εκεί.</p>
   </div>
   <div id="folderOut"></div>
+</section>
+
+<!-- COMPARE -->
+<section class="view" id="v-compare">
+  <h2 class="sec">⚖️ Σύγκριση δύο θεμάτων</h2>
+  <p class="muted small">Διάλεξε δύο θέματα για να τα δεις δίπλα-δίπλα: πεδίο, τύπος έρευνας, δυσκολία, πηγές, μεθοδολογία & ερευνητικά ερωτήματα. Μπορείς επίσης να πατήσεις «⚖️» σε οποιαδήποτε κάρτα θέματος.</p>
+  <div class="row" style="margin:12px 0">
+    <div><label>Θέμα Α</label><select id="cmpA"></select></div>
+    <div><label>Θέμα Β</label><select id="cmpB"></select></div>
+    <div style="display:flex;align-items:flex-end"><button class="btn" onclick="runCompare()" style="width:100%">⚖️ Σύγκριση</button></div>
+  </div>
+  <div id="cmpOut"></div>
+</section>
+
+<!-- TOOLS -->
+<section class="view" id="v-tools">
+  <h2 class="sec">🧰 Εργαλεία υποψηφίου διδάκτορα</h2>
+  <p class="muted small">Πρακτικά εργαλεία για κάθε φάση — όλα offline.</p>
+
+  <details class="accordion" open>
+    <summary>❓ Γεννήτρια ερευνητικών ερωτημάτων <span>▾</span></summary>
+    <div class="content">
+      <label>Περιγραφή θέματος / ιδέας</label>
+      <textarea id="rqTopic" placeholder="π.χ. «Τεχνητή νοημοσύνη στους τελωνειακούς ελέγχους»"></textarea>
+      <div class="row" style="margin-top:8px">
+        <div><label>Τύπος έρευνας</label><select id="rqType"></select></div>
+        <div style="display:flex;align-items:flex-end"><button class="btn" onclick="genRQ()" style="width:100%">Δημιουργία</button></div>
+      </div>
+      <div id="rqOut"></div>
+    </div>
+  </details>
+
+  <details class="accordion">
+    <summary>🎯 Αξιολόγηση θέματος (κριτήριο FINER) <span>▾</span></summary>
+    <div class="content">
+      <p class="muted small">Βαθμολόγησε 1 (χαμηλό) έως 5 (υψηλό). FINER = Feasible, Interesting, Novel, Ethical, Relevant.</p>
+      <div id="finerInputs"></div>
+      <button class="btn" onclick="calcFiner()" style="margin-top:8px">Υπολογισμός</button>
+      <div id="finerOut"></div>
+    </div>
+  </details>
+
+  <details class="accordion">
+    <summary>📊 Υπολογιστής μεγέθους δείγματος <span>▾</span></summary>
+    <div class="content">
+      <p class="muted small">Για ποσοτικές έρευνες/ερωτηματολόγια (αναλογία p=0.5, χειρότερη περίπτωση).</p>
+      <div class="row">
+        <div><label>Επίπεδο εμπιστοσύνης</label><select id="ssConf"><option value="1.645">90%</option><option value="1.96" selected>95%</option><option value="2.576">99%</option></select></div>
+        <div><label>Περιθώριο σφάλματος (%)</label><input id="ssErr" type="number" value="5" min="1" max="20" step="0.5"></div>
+        <div><label>Πληθυσμός (προαιρετικό)</label><input id="ssPop" type="number" placeholder="π.χ. 5000" min="1"></div>
+      </div>
+      <button class="btn" onclick="calcSample()" style="margin-top:8px">Υπολογισμός</button>
+      <div id="ssOut"></div>
+    </div>
+  </details>
+
+  <details class="accordion">
+    <summary>📚 Πλάνο ανάγνωσης βιβλιογραφίας <span>▾</span></summary>
+    <div class="content">
+      <div class="row">
+        <div><label>Άρθρα προς ανάγνωση</label><input id="rpPapers" type="number" value="80" min="1"></div>
+        <div><label>Λεπτά ανά άρθρο</label><input id="rpMin" type="number" value="40" min="5"></div>
+      </div>
+      <div class="row">
+        <div><label>Ημέρες/εβδομάδα</label><input id="rpDays" type="number" value="5" min="1" max="7"></div>
+        <div><label>Ώρες/ημέρα για διάβασμα</label><input id="rpHours" type="number" value="2" min="0.5" step="0.5"></div>
+      </div>
+      <button class="btn" onclick="calcReading()" style="margin-top:8px">Υπολογισμός</button>
+      <div id="rpOut"></div>
+    </div>
+  </details>
+
+  <details class="accordion">
+    <summary>🔖 Γεννήτρια αναφοράς (στυλ APA 7) <span>▾</span></summary>
+    <div class="content">
+      <div class="row">
+        <div><label>Συγγραφείς (π.χ. Παπαδόπουλος, Α., & Γεωργίου, Β.)</label><input id="apAuth" placeholder="Επώνυμο, Α."></div>
+        <div><label>Έτος</label><input id="apYear" placeholder="2024"></div>
+      </div>
+      <label>Τίτλος άρθρου</label><input id="apTitle" placeholder="Τίτλος της εργασίας">
+      <div class="row" style="margin-top:8px">
+        <div><label>Περιοδικό</label><input id="apJournal" placeholder="Όνομα περιοδικού"></div>
+        <div><label>Τόμος</label><input id="apVol" placeholder="12"></div>
+        <div><label>Τεύχος</label><input id="apIss" placeholder="3"></div>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <div><label>Σελίδες</label><input id="apPages" placeholder="45-67"></div>
+        <div><label>DOI (προαιρετικό)</label><input id="apDoi" placeholder="10.1000/xyz"></div>
+      </div>
+      <button class="btn" onclick="genAPA()" style="margin-top:8px">Δημιουργία αναφοράς</button>
+      <div id="apOut"></div>
+    </div>
+  </details>
+
+  <details class="accordion">
+    <summary>🚩 Έλεγχος «αρπακτικού» περιοδικού (predatory) <span>▾</span></summary>
+    <div class="content">
+      <p class="muted small">Τσέκαρε όσα ισχύουν. Όσο περισσότερα, τόσο μεγαλύτερος ο κίνδυνος το περιοδικό να είναι αναξιόπιστο.</p>
+      <div id="predInputs"></div>
+      <button class="btn" onclick="calcPred()" style="margin-top:8px">Αξιολόγηση</button>
+      <div id="predOut"></div>
+    </div>
+  </details>
 </section>
 
   <footer style="text-align:center;padding:26px 0 40px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);margin-top:30px">
@@ -639,6 +745,156 @@ document.getElementById('tlType').innerHTML=opt(TYPES);
 document.getElementById('pTypePills').innerHTML=Object.entries(TYPES).map(([k,v])=>`<span class="chip pick" data-t="${k}" onclick="this.classList.toggle('on')">${v}</span>`).join('');
 document.getElementById('guidePills').innerHTML=`<span class="chip pick on" data-g="general" onclick="pickGuide('general',this)">🧭 Γενικά βήματα</span>`+Object.entries(GUIDE).filter(([k])=>k!=='general').map(([k,g])=>`<span class="chip pick" data-g="${k}" onclick="pickGuide('${k}',this)">${g.icon} ${g.title}</span>`).join('');
 
+/* ============ COMPARE + TOOLS: init ============ */
+(function initExtras(){
+  const catOpts=CATALOG.map((c,i)=>`<option value="${i}">${c.t} — ${FIELDS[c.f]}</option>`).join('');
+  const A=document.getElementById('cmpA'), B=document.getElementById('cmpB');
+  if(A)A.innerHTML=catOpts; if(B){B.innerHTML=catOpts; B.selectedIndex=Math.min(1,CATALOG.length-1);}
+  const rq=document.getElementById('rqType'); if(rq)rq.innerHTML=opt(TYPES);
+  const FINER=[['Εφικτό (Feasible)','χρόνος, πόροι, δεδομένα, δεξιότητες'],['Ενδιαφέρον (Interesting)','για σένα & την κοινότητα'],['Πρωτότυπο (Novel)','καλύπτει ερευνητικό κενό'],['Ηθικό (Ethical)','εγκρίσεις, συναίνεση, ιδιωτικότητα'],['Σχετικό (Relevant)','χρήσιμο για επιστήμη/πρακτική/πολιτική']];
+  const fi=document.getElementById('finerInputs');
+  if(fi)fi.innerHTML=FINER.map((f,i)=>`<div style="margin:8px 0"><label style="display:flex;justify-content:space-between"><span><b>${f[0]}</b> — ${f[1]}</span><span id="fnv${i}">3</span></label><input type="range" min="1" max="5" value="3" id="fn${i}" oninput="document.getElementById('fnv${i}').textContent=this.value" style="padding:0"></div>`).join('');
+  const PRED=['Μαζικά/επίμονα emails πρόσκλησης για υποβολή','Υπόσχεται πολύ γρήγορη δημοσίευση / peer review','Ασαφή ή κρυμμένα τέλη δημοσίευσης (APC)','Δεν περιγράφει σαφώς τη διαδικασία peer review','Πλαστός/υπερβολικός «impact factor» ή άγνωστοι δείκτες','Εκδότης/διεύθυνση/στοιχεία επικοινωνίας ασαφή','Συντακτική επιτροπή χωρίς στοιχεία ή χωρίς τη συναίνεσή της','Δεν ευρετηριάζεται σε Scopus/WoS/DOAJ/PubMed','Κακής ποιότητας ιστότοπος, ορθογραφικά λάθη','Μιμείται το όνομα γνωστού έγκυρου περιοδικού'];
+  const pr=document.getElementById('predInputs');
+  if(pr)pr.innerHTML=PRED.map((p,i)=>`<label style="display:flex;gap:8px;align-items:flex-start;margin:6px 0;font-size:13.5px;color:var(--ink)"><input type="checkbox" id="pr${i}" style="width:auto;margin-top:3px">${p}</label>`).join('');
+})();
+
+/* ============ COMPARE ============ */
+function compareWith(idx){const B=document.getElementById('cmpB');document.getElementById('cmpA').value=idx;if(+B.value===idx)B.value=(idx+1)%CATALOG.length;go('compare');runCompare();}
+function cmpCol(c){
+  const srcKey=SOURCES[c.f]?c.f:'general';
+  return `<div class="result-block" style="margin:0">
+    <div class="meta" style="margin-bottom:6px">${fieldTag(c.f)}</div>
+    <h3 style="color:var(--accent);margin-top:0;font-size:15.5px">${c.t}</h3>
+    <p class="muted small">${c.desc}</p>
+    <div class="kv" style="grid-template-columns:120px 1fr">
+      <b>Πεδίο</b><span>${FIELDS[c.f]}</span>
+      <b>Τύπος έρευνας</b><span>${c.ty.map(t=>TYPES[t]).join(', ')}</span>
+      <b>Δυσκολία</b><span class="stars">${diffStars(c.d)}</span>
+      <b>Μεθοδολογία</b><span>${GUIDE[c.ty[0]]?GUIDE[c.ty[0]].title:'Γενική'}</span>
+      <b>Πηγές</b><span>${(SOURCES[srcKey]||[]).slice(0,3).map(s=>s[0]).join(' · ')}</span>
+    </div>
+    <b class="small" style="color:var(--accent)">Ερευνητικά ερωτήματα</b>
+    <ul class="clean">${genQuestions(c).map(q=>`<li>${q}</li>`).join('')}</ul>
+  </div>`;
+}
+function runCompare(){
+  const a=+document.getElementById('cmpA').value, b=+document.getElementById('cmpB').value;
+  const ca=CATALOG[a], cb=CATALOG[b];
+  const out=document.getElementById('cmpOut');
+  if(a===b){out.innerHTML='<div class="callout">Διάλεξε δύο <b>διαφορετικά</b> θέματα για σύγκριση.</div>';return;}
+  const common=ca.ty.filter(t=>cb.ty.includes(t)).map(t=>TYPES[t]);
+  out.innerHTML=`<div class="grid" style="grid-template-columns:1fr 1fr;gap:14px;align-items:start">${cmpCol(ca)}${cmpCol(cb)}</div>
+  <div class="callout" style="margin-top:14px">
+    <b>Γρήγορη ματιά:</b>
+    <ul class="clean">
+      <li>Ίδιο πεδίο; <b>${ca.f===cb.f?'Ναι — '+FIELDS[ca.f]:'Όχι ('+FIELDS[ca.f]+' vs '+FIELDS[cb.f]+')'}</b></li>
+      <li>Κοινός τύπος έρευνας: <b>${common.length?common.join(', '):'—'}</b></li>
+      <li>Πιο προσιτό (δυσκολία): <b>${ca.d<cb.d?ca.t:cb.d<ca.d?cb.t:'ισοδύναμα'}</b></li>
+    </ul>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+    <button class="btn ghost sm" onclick="saveTopic(${a})">＋ Α στον φάκελο</button>
+    <button class="btn ghost sm" onclick="saveTopic(${b})">＋ Β στον φάκελο</button>
+    <button class="btn ghost sm" onclick="window.print()">🖨️ Εκτύπωση σύγκρισης</button>
+  </div>`;
+}
+
+/* ============ TOOLS ============ */
+function copyText(t){navigator.clipboard&&navigator.clipboard.writeText(t).then(()=>toast('Αντιγράφηκε ✓'),()=>toast('Δεν ήταν δυνατή η αντιγραφή'));}
+function genRQ(){
+  const raw=document.getElementById('rqTopic').value.trim();
+  const ty=document.getElementById('rqType').value;
+  const out=document.getElementById('rqOut');
+  if(!raw){out.innerHTML='<div class="callout">Γράψε πρώτα μια σύντομη περιγραφή θέματος.</div>';return;}
+  const t=raw.replace(/[.;]+$/,'');
+  const low=t.replace(/^[Α-ΩA-Z]/,m=>m.toLowerCase());
+  const byType={
+    quant:[`Ποια η σχέση μεταξύ των βασικών μεταβλητών στο «${t}»;`,`Σε ποιο βαθμό το Χ επηρεάζει το Υ, ελέγχοντας για άλλους παράγοντες;`,`Διαφέρουν στατιστικά σημαντικά οι ομάδες ως προς ${low};`],
+    qual:[`Πώς βιώνουν/αντιλαμβάνονται οι εμπλεκόμενοι το ${low};`,`Ποια νοήματα αποδίδουν οι συμμετέχοντες στο «${t}»;`,`Ποιοι παράγοντες διαμορφώνουν τη συμπεριφορά γύρω από ${low};`],
+    exp:[`Ποια η αιτιώδης επίδραση της παρέμβασης στο ${low};`,`Διαφέρει το αποτέλεσμα μεταξύ ομάδας ελέγχου & παρέμβασης;`,`Ποιες συνθήκες μεγιστοποιούν το αποτέλεσμα;`],
+    theo:[`Υπό ποιες προϋποθέσεις ισχύει το προτεινόμενο μοντέλο για ${low};`,`Μπορεί να γενικευτεί το υπάρχον θεώρημα/πλαίσιο;`,`Ποια τα όρια εφαρμογής της θεωρίας;`],
+    comp:[`Μπορεί το προτεινόμενο μοντέλο να ξεπεράσει τα baselines στο ${low};`,`Ποια χαρακτηριστικά/δεδομένα βελτιώνουν περισσότερο την απόδοση;`,`Πόσο γενικεύει το μοντέλο σε νέα δεδομένα;`],
+    mixed:[`Πώς τα ποσοτικά ευρήματα εξηγούνται από τα ποιοτικά στο ${low};`,`Συγκλίνουν ή αποκλίνουν τα δύο είδη δεδομένων;`,`Τι προσθέτει η σύνθεση σε σχέση με κάθε μέθοδο χωριστά;`],
+    review:[`Τι γνωρίζουμε & τι παραμένει ανοιχτό για το «${t}»;`,`Ποια η ποιότητα & ο κίνδυνος μεροληψίας των υπαρχουσών μελετών;`,`Ποιες μελλοντικές κατευθύνσεις προκύπτουν;`],
+    applied:[`Λύνει το προτεινόμενο artifact το πρόβλημα του ${low};`,`Πόσο αποτελεσματικό/χρηστικό είναι στην πράξη;`,`Ποιες αρχές σχεδίασης γενικεύονται πέρα από τη μία περίπτωση;`]
+  };
+  const qs=byType[ty]||byType.quant;
+  out.innerHTML=`<div class="result-block" style="margin-top:12px">
+    <h4 style="color:var(--accent);margin-top:0">Κεντρικό ερευνητικό ερώτημα</h4>
+    <ul class="clean"><li>Ποια η συμβολή του «${t}» στη γνώση, και πώς τεκμηριώνεται εμπειρικά/θεωρητικά;</li></ul>
+    <h4 style="color:var(--accent)">Επιμέρους ερωτήματα (${TYPES[ty]})</h4>
+    <ul class="clean">${qs.map(q=>`<li>${q}</li>`).join('')}</ul>
+    <h4 style="color:var(--accent)">Υπόθεση (πρόχειρη)</h4>
+    <ul class="clean"><li>Η/Το ${low} σχετίζεται θετικά/αρνητικά με το αποτέλεσμα-στόχο υπό συγκεκριμένες συνθήκες.</li></ul>
+    <p class="muted small">💡 Καλό ερώτημα = σαφές, εφικτό, πρωτότυπο, μετρήσιμο. Προσάρμοσέ τα στα δεδομένα σου.</p>
+  </div>`;
+}
+function calcFiner(){
+  let sum=0;const weak=[];const names=['Εφικτό','Ενδιαφέρον','Πρωτότυπο','Ηθικό','Σχετικό'];
+  for(let i=0;i<5;i++){const v=+document.getElementById('fn'+i).value;sum+=v;if(v<=2)weak.push(names[i]);}
+  let verdict,color;
+  if(sum>=21){verdict='Εξαιρετικό θέμα — προχώρα!';color='var(--good)';}
+  else if(sum>=16){verdict='Καλό θέμα — με μικρές βελτιώσεις γίνεται ισχυρό.';color='var(--good)';}
+  else if(sum>=11){verdict='Μέτριο — χρειάζεται δουλειά στα αδύναμα σημεία.';color='var(--warn)';}
+  else{verdict='Αδύναμο — σκέψου επαναδιατύπωση ή άλλο θέμα.';color='var(--bad)';}
+  document.getElementById('finerOut').innerHTML=`<div class="result-block" style="margin-top:12px">
+    <div style="font-size:30px;font-weight:800;color:${color}">${sum}<span style="font-size:16px;color:var(--muted)"> / 25</span></div>
+    <p style="margin:4px 0;font-weight:700">${verdict}</p>
+    ${weak.length?`<p class="muted small">Προσοχή στα: <b>${weak.join(', ')}</b> — ενίσχυσέ τα πριν ξεκινήσεις.</p>`:'<p class="muted small">Κανένα κρίσιμα αδύναμο σημείο. 👍</p>'}
+  </div>`;
+}
+function calcSample(){
+  const z=+document.getElementById('ssConf').value, e=(+document.getElementById('ssErr').value)/100, N=parseInt(document.getElementById('ssPop').value);
+  if(!e||e<=0){toast('Δώσε έγκυρο περιθώριο σφάλματος');return;}
+  const n0=(z*z*0.25)/(e*e);
+  let n=n0; if(N&&N>0)n=n0/(1+(n0-1)/N);
+  document.getElementById('ssOut').innerHTML=`<div class="result-block" style="margin-top:12px">
+    <div style="font-size:30px;font-weight:800;color:var(--accent)">${Math.ceil(n)}</div>
+    <p style="margin:4px 0">απαιτούμενο μέγεθος δείγματος${N?` (για πληθυσμό ${N.toLocaleString('el-GR')})`:' (άπειρος/άγνωστος πληθυσμός)'}.</p>
+    <p class="muted small">Πρόσθεσε ~20-30% για πιθανή μη-ανταπόκριση/ελλιπείς απαντήσεις → στόχευσε ~${Math.ceil(n*1.25)}.</p>
+  </div>`;
+}
+function calcReading(){
+  const p=+document.getElementById('rpPapers').value, m=+document.getElementById('rpMin').value, d=+document.getElementById('rpDays').value, h=+document.getElementById('rpHours').value;
+  if(!p||!m||!d||!h){toast('Συμπλήρωσε όλα τα πεδία');return;}
+  const totalH=p*m/60, perWeek=d*h, weeks=totalH/perWeek;
+  document.getElementById('rpOut').innerHTML=`<div class="result-block" style="margin-top:12px">
+    <div class="stat">
+      <div class="box"><b>${Math.round(totalH)}</b><span>συνολικές ώρες</span></div>
+      <div class="box"><b>${weeks.toFixed(1)}</b><span>εβδομάδες</span></div>
+      <div class="box"><b>${(weeks/4.3).toFixed(1)}</b><span>μήνες</span></div>
+    </div>
+    <p class="muted small" style="margin-top:8px">Με ${d} ημέρες/εβδομάδα × ${h} ώρες. 💡 Κράτα σημειώσεις ανά άρθρο σε reference manager για να μη διαβάζεις δύο φορές.</p>
+  </div>`;
+}
+function genAPA(){
+  const a=document.getElementById('apAuth').value.trim(), y=document.getElementById('apYear').value.trim(), t=document.getElementById('apTitle').value.trim(),
+        j=document.getElementById('apJournal').value.trim(), v=document.getElementById('apVol').value.trim(), is=document.getElementById('apIss').value.trim(),
+        pg=document.getElementById('apPages').value.trim(), doi=document.getElementById('apDoi').value.trim();
+  if(!a||!y||!t||!j){toast('Συμπλήρωσε τουλάχιστον: συγγραφείς, έτος, τίτλο, περιοδικό');return;}
+  const volPart=v?`${v}${is?`(${is})`:''}`:'';
+  const html=`${a} (${y}). ${t}. <em>${j}</em>${volPart?`, <em>${volPart}</em>`:''}${pg?`, ${pg}`:''}.${doi?` https://doi.org/${doi.replace(/^https?:\/\/doi\.org\//,'')}`:''}`;
+  const plain=html.replace(/<\/?em>/g,'');
+  document.getElementById('apOut').innerHTML=`<div class="result-block" style="margin-top:12px">
+    <p style="margin:0 0 10px">${html}</p>
+    <button class="btn ghost sm" onclick='copyText(${JSON.stringify(plain).replace(/'/g,"&#39;")})'>📋 Αντιγραφή</button>
+    <p class="muted small" style="margin-top:8px">Έλεγξε τα κεφαλαία & τη στίξη σύμφωνα με τον οδηγό APA 7 του τμήματός σου.</p>
+  </div>`;
+}
+function calcPred(){
+  let n=0;for(let i=0;i<10;i++){const el=document.getElementById('pr'+i);if(el&&el.checked)n++;}
+  let msg,color;
+  if(n===0){msg='Δεν δηλώθηκαν ενδείξεις — αλλά επιβεβαίωσε πάντα σε DOAJ / Scopus / Think-Check-Submit.';color='var(--good)';}
+  else if(n<=2){msg='Λίγες ενδείξεις — πρόσεξε, διασταύρωσε την εγκυρότητα πριν υποβάλεις.';color='var(--warn)';}
+  else{msg='Πολλές ενδείξεις — υψηλός κίνδυνος «αρπακτικού» περιοδικού. Απόφυγέ το.';color='var(--bad)';}
+  document.getElementById('predOut').innerHTML=`<div class="result-block" style="margin-top:12px">
+    <div style="font-size:26px;font-weight:800;color:${color}">${n} / 10 ενδείξεις</div>
+    <p style="margin:4px 0;font-weight:700;color:${color}">${msg}</p>
+    <p class="muted small">Χρήσιμα: DOAJ (doaj.org), Think-Check-Submit (thinkchecksubmit.org), έλεγχος ευρετηρίασης σε Scopus/Web of Science.</p>
+  </div>`;
+}
+
 /* ============ NAV ============ */
 function go(v){
   document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.v===v));
@@ -733,7 +989,8 @@ function renderCatalog(){
       <div class="desc">${c.desc}</div>
       <div class="foot">
         <span class="stars small" title="Δυσκολία">${diffStars(c.d)}</span>
-        <span><button class="btn ghost sm" onclick="openTopic(${idx})">Λεπτομέρειες</button>
+        <span><button class="btn ghost sm" onclick="compareWith(${idx})" title="Σύγκριση">⚖️</button>
+        <button class="btn ghost sm" onclick="openTopic(${idx})">Λεπτομέρειες</button>
         <button class="btn sm" onclick="saveTopic(${idx})">＋ Φάκελος</button></span>
       </div>
     </div>`}).join('');
