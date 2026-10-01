@@ -432,6 +432,32 @@ ul.clean li{margin:4px 0;font-size:13.5px}
   </details>
 
   <details class="accordion">
+    <summary>⏱️ Pomodoro & καταμέτρηση λέξεων <span>▾</span></summary>
+    <div class="content">
+      <div class="row">
+        <div><label>Λεπτά εστίασης</label><input id="pmWork" type="number" value="25" min="1" max="90" onchange="pmReset()"></div>
+        <div><label>Λεπτά διαλείμματος</label><input id="pmBreak" type="number" value="5" min="1" max="30"></div>
+      </div>
+      <div style="text-align:center;margin:14px 0">
+        <div id="pmPhase" class="muted small" style="font-weight:700;letter-spacing:1px">ΕΣΤΙΑΣΗ 🎯</div>
+        <div id="pmTime" style="font-size:52px;font-weight:800;color:var(--accent);line-height:1.1">25:00</div>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px">
+          <button class="btn" id="pmStart" onclick="pmToggle()">▶ Έναρξη</button>
+          <button class="btn ghost" onclick="pmReset()">↺ Μηδενισμός</button>
+        </div>
+        <div class="muted small" style="margin-top:8px">Ολοκληρωμένα pomodoro σήμερα: <b id="pmCount">0</b> · σύνολο εστίασης: <b id="pmFocus">0′</b></div>
+      </div>
+      <hr style="border:none;border-top:1px solid var(--line);margin:14px 0">
+      <h4 style="margin:0 0 8px">✍️ Λέξεις σήμερα</h4>
+      <div class="row">
+        <div><label>Ημερήσιος στόχος</label><input id="wcGoal" type="number" value="500" min="50" step="50" oninput="wcUpdate()"></div>
+        <div><label>Έγραψα σήμερα</label><input id="wcDone" type="number" value="0" min="0" oninput="wcUpdate()"></div>
+      </div>
+      <div id="wcOut" style="margin-top:10px"></div>
+    </div>
+  </details>
+
+  <details class="accordion">
     <summary>🔖 Γεννήτρια αναφοράς (στυλ APA 7) <span>▾</span></summary>
     <div class="content">
       <div class="row">
@@ -895,6 +921,49 @@ function calcPred(){
   </div>`;
 }
 
+/* ============ POMODORO + WORD COUNT ============ */
+let pmState={running:false,phase:'work',remaining:25*60,timer:null};
+function pmDayKey(){return 'dd_pomo_'+new Date().toLocaleDateString('el-GR')}
+function pmFmt(s){const m=Math.floor(s/60),ss=s%60;return (m<10?'0':'')+m+':'+(ss<10?'0':'')+ss}
+function pmBeep(){try{const a=new (window.AudioContext||window.webkitAudioContext)();const o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=880;g.gain.setValueAtTime(0.001,a.currentTime);g.gain.exponentialRampToValueAtTime(0.3,a.currentTime+0.02);g.gain.exponentialRampToValueAtTime(0.001,a.currentTime+0.6);o.start();o.stop(a.currentTime+0.62);}catch(e){}}
+function pmStats(){const d=JSON.parse(localStorage.getItem(pmDayKey())||'{"c":0,"m":0}');const c=document.getElementById('pmCount'),fo=document.getElementById('pmFocus');if(c)c.textContent=d.c;if(fo)fo.textContent=d.m+'′';}
+function pmRender(){const t=document.getElementById('pmTime');if(t)t.textContent=pmFmt(pmState.remaining);const ph=document.getElementById('pmPhase');if(ph)ph.textContent=pmState.phase==='work'?'ΕΣΤΙΑΣΗ 🎯':'ΔΙΑΛΕΙΜΜΑ ☕';const b=document.getElementById('pmStart');if(b)b.textContent=pmState.running?'⏸ Παύση':'▶ Έναρξη';}
+function pmTick(){
+  pmState.remaining--;
+  if(pmState.remaining<=0){
+    pmBeep();
+    if(pmState.phase==='work'){
+      const d=JSON.parse(localStorage.getItem(pmDayKey())||'{"c":0,"m":0}');
+      d.c++; d.m+=(+document.getElementById('pmWork').value||25);
+      localStorage.setItem(pmDayKey(),JSON.stringify(d)); pmStats();
+      pmState.phase='break'; pmState.remaining=(+document.getElementById('pmBreak').value||5)*60;
+      toast('Μπράβο! Ολοκληρώθηκε ένα pomodoro — ώρα για διάλειμμα ☕');
+    } else {
+      pmState.phase='work'; pmState.remaining=(+document.getElementById('pmWork').value||25)*60;
+      toast('Διάλειμμα τέλος — ώρα για εστίαση 🎯');
+    }
+  }
+  pmRender();
+}
+function pmToggle(){
+  if(pmState.running){clearInterval(pmState.timer);pmState.running=false;}
+  else{pmState.running=true;pmState.timer=setInterval(pmTick,1000);}
+  pmRender();
+}
+function pmReset(){
+  clearInterval(pmState.timer);pmState.running=false;pmState.phase='work';
+  const w=document.getElementById('pmWork'); pmState.remaining=(w?+w.value:25||25)*60;
+  pmRender();
+}
+function wcUpdate(){
+  const goal=+document.getElementById('wcGoal').value||0, done=+document.getElementById('wcDone').value||0;
+  const pct=goal?Math.min(100,Math.round(done/goal*100)):0;
+  const color=pct>=100?'var(--good)':pct>=50?'var(--warn)':'var(--accent)';
+  try{localStorage.setItem('dd_words_'+new Date().toLocaleDateString('el-GR'),done);}catch(e){}
+  document.getElementById('wcOut').innerHTML=`<div style="background:var(--bg2);border-radius:999px;height:12px;overflow:hidden;border:1px solid var(--line)"><div style="width:${pct}%;height:100%;background:${color};transition:.3s"></div></div>
+  <p class="muted small" style="margin:6px 0 0">${done} / ${goal} λέξεις (${pct}%)${pct>=100?' — στόχος επετεύχθη! 🎉':''}</p>`;
+}
+
 /* ============ NAV ============ */
 function go(v){
   document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.v===v));
@@ -1237,9 +1306,45 @@ function saveTopic(idx){
   else toast('Υπάρχει ήδη στον φάκελο');
 }
 function savePlan(plan){const f=store.folder;f.plan=plan;store.folder=f;toast('Το σχέδιο αποθηκεύτηκε ✓')}
+const MILESTONES=[
+  "Οριστικοποίηση θέματος & ερευνητικών ερωτημάτων",
+  "Εύρεση/συμφωνία με επιβλέποντα",
+  "Βιβλιογραφική επισκόπηση",
+  "Συγγραφή & έγκριση πρότασης (proposal)",
+  "Ηθική έγκριση (όπου απαιτείται)",
+  "Συλλογή δεδομένων / πειράματα",
+  "Ανάλυση δεδομένων",
+  "1η δημοσίευση / παρουσίαση σε συνέδριο",
+  "2η δημοσίευση",
+  "Συγγραφή διατριβής",
+  "Κατάθεση & υποστήριξη (viva)"
+];
+function getProgress(){try{return JSON.parse(localStorage.getItem('dd_progress')||'[]')}catch(e){return[]}}
+function toggleMilestone(i){const p=getProgress();p[i]=!p[i];localStorage.setItem('dd_progress',JSON.stringify(p));renderFolder();}
+function dashboardHTML(){
+  const p=getProgress();
+  const done=MILESTONES.filter((_,i)=>p[i]).length;
+  const pct=Math.round(done/MILESTONES.length*100);
+  const color=pct>=67?'var(--good)':pct>=34?'var(--warn)':'var(--accent)';
+  return `<div class="result-block"><h3>📊 Η πρόοδός μου</h3>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <div style="flex:1;min-width:180px;background:var(--bg2);border-radius:999px;height:14px;overflow:hidden;border:1px solid var(--line)">
+        <div style="width:${pct}%;height:100%;background:${color};transition:.3s"></div>
+      </div>
+      <b style="font-size:18px;color:${color}">${pct}%</b>
+      <span class="muted small">${done}/${MILESTONES.length} ορόσημα</span>
+    </div>
+    <div style="margin-top:12px;display:grid;gap:4px">
+      ${MILESTONES.map((m,i)=>`<label style="display:flex;gap:9px;align-items:center;padding:7px 9px;border-radius:8px;cursor:pointer;background:${p[i]?'var(--panel2)':'transparent'};font-size:13.5px">
+        <input type="checkbox" ${p[i]?'checked':''} onchange="toggleMilestone(${i})" style="width:auto">
+        <span style="${p[i]?'text-decoration:line-through;color:var(--muted)':''}">${i+1}. ${m}</span></label>`).join('')}
+    </div>
+    ${pct===100?'<div class="callout" style="margin-top:10px">🎉 Συγχαρητήρια! Ολοκλήρωσες όλα τα ορόσημα — καλή επιτυχία στην υποστήριξη!</div>':''}
+  </div>`;
+}
 function renderFolder(){
   const f=store.folder;const out=document.getElementById('folderOut');
-  let html='';
+  let html=dashboardHTML();
   if(f.plan){
     const p=f.plan;
     html+=`<div class="result-block"><h3>📝 Το σχέδιό μου</h3>
@@ -1330,8 +1435,9 @@ function importBackup(input){
 let toastT;
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2200)}
 
-/* ============ ΑΡΧΙΚΟΠΟΙΗΣΗ ΑΡΧΙΚΗΣ ============ */
+/* ============ ΑΡΧΙΚΟΠΟΙΗΣΗ ============ */
 renderFeatured();
+try{pmStats();pmRender();const wd=localStorage.getItem('dd_words_'+new Date().toLocaleDateString('el-GR'));if(wd&&document.getElementById('wcDone'))document.getElementById('wcDone').value=wd;wcUpdate();}catch(e){}
 try{const last=localStorage.getItem('dd_tab');if(last&&last!=='home'&&document.getElementById('v-'+last))go(last);}catch(e){}
 </script>
 </body>
